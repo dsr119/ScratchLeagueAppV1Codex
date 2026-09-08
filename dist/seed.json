@@ -1,0 +1,2253 @@
+{
+  "version": 1,
+  "season": "2026-2027",
+  "teams": [
+    {
+      "number": 1,
+      "name": "Team 1",
+      "players": [
+        "9895382d-5ac0-5fbb-ba66-a64116753730",
+        "e00a980d-1f45-5448-8f1c-e0ea94e25645",
+        "ccc0f001-9f74-50df-a4d8-7b3077c74e6a"
+      ]
+    },
+    {
+      "number": 2,
+      "name": "BESTENS AUTO BODY",
+      "players": [
+        "f02f4229-dbcf-5bda-8993-95445bb861e9",
+        "f19a6d10-8a9b-5c4d-b311-d3dc2efbde96",
+        "246dc0a5-84de-595a-ae0f-69ef97305581"
+      ]
+    },
+    {
+      "number": 3,
+      "name": "Team 3",
+      "players": [
+        "34e41523-51f3-5d6a-b48a-1df532ce0da4",
+        "ec4b373f-af5c-55c8-a599-89b0ca720974",
+        "8786c59e-125e-55a7-a01f-41c1ffb60b1c"
+      ]
+    },
+    {
+      "number": 4,
+      "name": "RC CANADA DRY",
+      "players": [
+        "4b7182ee-25b5-5f70-9538-dfbaf8241876",
+        "f2f73abf-91ff-50d9-993e-35935a382c56",
+        "3b106b44-3be2-5a07-bae7-7e05f2dec2d2"
+      ]
+    },
+    {
+      "number": 5,
+      "name": "Team 5",
+      "players": [
+        "3d98c531-1416-5993-87d1-18d3a79a2346",
+        "bf201abe-4afc-5f1f-aa17-d51bb3cfd838",
+        "056ec795-2549-51f5-8321-bc379315cf01"
+      ]
+    },
+    {
+      "number": 6,
+      "name": "MARIANO CONSTRUCTION",
+      "players": [
+        "6e55fb90-cd35-5402-87b2-e2cdcc453fa5",
+        "66e3ed83-e9b6-5362-bd10-3854326396d9",
+        "c01027a4-1fc7-5ac0-a9b3-e2d9794b75b7"
+      ]
+    },
+    {
+      "number": 7,
+      "name": "SHARKEYS",
+      "players": [
+        "cb509e26-9436-5ce2-badc-58ebc573e391",
+        "41b0d74b-e3dc-50c6-bf70-12099937440c",
+        "3af5c518-8a7a-5132-8689-3b1a8aea6032"
+      ]
+    },
+    {
+      "number": 8,
+      "name": "CSI ASPHALT",
+      "players": [
+        "9c6d9818-929d-5f63-86b3-294465ad43a6",
+        "f8111e51-fd6a-5fdd-b7d5-e46041f75b9c",
+        "ef63cc79-9b59-5c05-b496-2ccef5f6c557"
+      ]
+    },
+    {
+      "number": 9,
+      "name": "BOMBA DEER TAXIDERMY",
+      "players": [
+        "b0fafc78-b3c9-5de8-a223-d71f0052f84f",
+        "63a46122-52ed-5c6b-9b1c-d244eedfba28",
+        "0f3b520e-d622-5885-b51c-5f1dcc38fa74"
+      ]
+    },
+    {
+      "number": 10,
+      "name": "KELLOGG'S AERIEL LIFTS",
+      "players": [
+        "cf45a1db-0c07-514c-a4ce-7b7a297339c7",
+        "00abcd7c-cf28-56ca-99ba-09670cb0a82a",
+        "5fe9a1dd-e083-5c11-8efa-3567789b470a"
+      ]
+    },
+    {
+      "number": 11,
+      "name": "Team 11",
+      "players": [
+        "6fade48e-1c88-511a-807c-c87e30076aa9",
+        "0df3ac07-22ae-5ac1-bb4c-edd89021d7c3",
+        "ceb0d9a4-4755-532d-90d8-ec7c016003ef"
+      ]
+    },
+    {
+      "number": 12,
+      "name": "NJB CONSTRUCTION",
+      "players": [
+        "38c876e9-0b2e-55c0-81e9-a18753146af7",
+        "9fbc7ecb-d46a-5a27-95fb-5c125ad3a50c",
+        "c6a933ac-60dd-51e6-9385-bae9f5c5ec88"
+      ]
+    },
+    {
+      "number": 13,
+      "name": "Team 13",
+      "players": [
+        "153b17f1-7bdc-58ef-aa01-fecd9fb845fb",
+        "28971222-a03d-57a2-9553-aeb11e4efc93",
+        "22109f45-de49-5f0a-b16b-1a5b6cc4c5fb"
+      ]
+    },
+    {
+      "number": 14,
+      "name": "Team 14",
+      "players": [
+        "948b5a74-c725-55cf-9b03-ae6c7503320b",
+        "a9542d73-373c-50a6-a1c1-28159c1409ad",
+        "031ac4d5-d816-5836-bf56-84ec04da3e77"
+      ]
+    },
+    {
+      "number": 15,
+      "name": "RENEGADE ROOFING",
+      "players": [
+        "35f443ba-9482-5e14-8f45-97e383069257",
+        "ac8d0241-031a-571a-96bc-1b268220c29e",
+        "bc81454d-59ad-53e4-9791-d991dba2f18b"
+      ]
+    },
+    {
+      "number": 16,
+      "name": "KELLOGG'S AUTO DETAILING",
+      "players": [
+        "db560a30-5c2e-550a-9be7-ea4f68901ddd",
+        "09f25a96-5173-5044-a3f4-29a116ee67b2",
+        "c3d0554e-0a02-5903-aecf-597628f1d796"
+      ]
+    },
+    {
+      "number": 17,
+      "name": "TUBBY'S",
+      "players": [
+        "0a880edb-35f0-5e7e-9562-c78fac3f3e22",
+        "c0bd3d84-5150-5aae-a221-25d481e12352",
+        "9fd56313-0d90-56f3-9b5d-8cb8c75f32f7"
+      ]
+    },
+    {
+      "number": 18,
+      "name": "Team 18",
+      "players": [
+        "a26df191-e1b5-59c9-951e-865145df9ed9",
+        "863eec86-01bc-5c87-a586-d2822aa27cf6",
+        "f837d4c3-17f5-51db-8b1d-1d8b16751d68"
+      ]
+    }
+  ],
+  "bowlers": [
+    {
+      "id": "0a880edb-35f0-5e7e-9562-c78fac3f3e22",
+      "name": "James Bianchi",
+      "sourceName": "Bianchi, James",
+      "team": 17,
+      "entering": 196,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "c0bd3d84-5150-5aae-a221-25d481e12352",
+      "name": "Mark Edwards",
+      "sourceName": "Edwards, Mark",
+      "team": 17,
+      "entering": 220,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "9fd56313-0d90-56f3-9b5d-8cb8c75f32f7",
+      "name": "T.J. Lyon",
+      "sourceName": "Lyon, T.J.",
+      "team": 17,
+      "entering": 205,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "ffe978ca-8dd3-574c-92d5-967549fbdad2",
+      "name": "Joe Renaldi",
+      "sourceName": "Renaldi, Joe",
+      "team": null,
+      "entering": 220,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "3d98c531-1416-5993-87d1-18d3a79a2346",
+      "name": "Mike Dutkiewicz",
+      "sourceName": "Dutkiewicz, Mike",
+      "team": 5,
+      "entering": 193,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "bf201abe-4afc-5f1f-aa17-d51bb3cfd838",
+      "name": "Sam Dutkiewicz",
+      "sourceName": "Dutkiewicz, Sam",
+      "team": 5,
+      "entering": 211,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "056ec795-2549-51f5-8321-bc379315cf01",
+      "name": "Fran Luzzi",
+      "sourceName": "Luzzi, Fran",
+      "team": 5,
+      "entering": 209,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "34e41523-51f3-5d6a-b48a-1df532ce0da4",
+      "name": "Christiana Gebhardt",
+      "sourceName": "Gebhardt, Christiana",
+      "team": 3,
+      "entering": 199,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "ec4b373f-af5c-55c8-a599-89b0ca720974",
+      "name": "Dustin Gravelle",
+      "sourceName": "Gravelle, Dustin",
+      "team": 3,
+      "entering": 222,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "8786c59e-125e-55a7-a01f-41c1ffb60b1c",
+      "name": "Keith Vannan",
+      "sourceName": "Vannan, Keith",
+      "team": 3,
+      "entering": 195,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "a26df191-e1b5-59c9-951e-865145df9ed9",
+      "name": "Jon Morris",
+      "sourceName": "Morris, Jon",
+      "team": 18,
+      "entering": 207,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "863eec86-01bc-5c87-a586-d2822aa27cf6",
+      "name": "Ryan Watson",
+      "sourceName": "Watson, Ryan",
+      "team": 18,
+      "entering": 198,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "f837d4c3-17f5-51db-8b1d-1d8b16751d68",
+      "name": "Chris Weldon",
+      "sourceName": "Weldon, Chris",
+      "team": 18,
+      "entering": 209,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "948b5a74-c725-55cf-9b03-ae6c7503320b",
+      "name": "Bobby Johnson",
+      "sourceName": "Johnson, Bobby",
+      "team": 14,
+      "entering": 224,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "a9542d73-373c-50a6-a1c1-28159c1409ad",
+      "name": "Ronnie Marinelli",
+      "sourceName": "Marinelli, Ronnie",
+      "team": 14,
+      "entering": 191,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "031ac4d5-d816-5836-bf56-84ec04da3e77",
+      "name": "Cory Sohns",
+      "sourceName": "Sohns, Cory",
+      "team": 14,
+      "entering": 202,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "153b17f1-7bdc-58ef-aa01-fecd9fb845fb",
+      "name": "Dave Carroll",
+      "sourceName": "Carroll, Dave",
+      "team": 13,
+      "entering": 223,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "28971222-a03d-57a2-9553-aeb11e4efc93",
+      "name": "Eddie Kozlowski",
+      "sourceName": "Kozlowski, Eddie",
+      "team": 13,
+      "entering": 203,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "22109f45-de49-5f0a-b16b-1a5b6cc4c5fb",
+      "name": "Bob Smith",
+      "sourceName": "Smith, Bob",
+      "team": 13,
+      "entering": 183,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "6fade48e-1c88-511a-807c-c87e30076aa9",
+      "name": "John Dinning",
+      "sourceName": "Dinning, John",
+      "team": 11,
+      "entering": 211,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "0df3ac07-22ae-5ac1-bb4c-edd89021d7c3",
+      "name": "Michael Dinning",
+      "sourceName": "Dinning, Michael",
+      "team": 11,
+      "entering": 202,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "ceb0d9a4-4755-532d-90d8-ec7c016003ef",
+      "name": "Marshall Ward",
+      "sourceName": "Ward, Marshall",
+      "team": 11,
+      "entering": 189,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "9895382d-5ac0-5fbb-ba66-a64116753730",
+      "name": "Jared Kerchner",
+      "sourceName": "Kerchner, Jared",
+      "team": 1,
+      "entering": 209,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "e00a980d-1f45-5448-8f1c-e0ea94e25645",
+      "name": "Ladomirak, Jr, Gary",
+      "sourceName": "Ladomirak, Jr, Gary",
+      "team": 1,
+      "entering": 193,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "ccc0f001-9f74-50df-a4d8-7b3077c74e6a",
+      "name": "Jared Morris",
+      "sourceName": "Morris, Jared",
+      "team": 1,
+      "entering": 201,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "cb509e26-9436-5ce2-badc-58ebc573e391",
+      "name": "Becky Decker",
+      "sourceName": "Decker, Becky",
+      "team": 7,
+      "entering": 180,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "41b0d74b-e3dc-50c6-bf70-12099937440c",
+      "name": "Pat Mcdonald",
+      "sourceName": "Mcdonald, Pat",
+      "team": 7,
+      "entering": 202,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "3af5c518-8a7a-5132-8689-3b1a8aea6032",
+      "name": "Doug Smith",
+      "sourceName": "Smith, Doug",
+      "team": 7,
+      "entering": 225,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "35f443ba-9482-5e14-8f45-97e383069257",
+      "name": "James Durland",
+      "sourceName": "Durland, James",
+      "team": 15,
+      "entering": 217,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "ac8d0241-031a-571a-96bc-1b268220c29e",
+      "name": "Aniesa Grabowski",
+      "sourceName": "Grabowski, Aniesa",
+      "team": 15,
+      "entering": 199,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "bc81454d-59ad-53e4-9791-d991dba2f18b",
+      "name": "John Grady",
+      "sourceName": "Grady, John",
+      "team": 15,
+      "entering": 196,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "4b7182ee-25b5-5f70-9538-dfbaf8241876",
+      "name": "James Angerson",
+      "sourceName": "Angerson, James",
+      "team": 4,
+      "entering": 219,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "f2f73abf-91ff-50d9-993e-35935a382c56",
+      "name": "Tyler Eisenhauer",
+      "sourceName": "Eisenhauer, Tyler",
+      "team": 4,
+      "entering": 187,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "3b106b44-3be2-5a07-bae7-7e05f2dec2d2",
+      "name": "Adam Grabowski",
+      "sourceName": "Grabowski, Adam",
+      "team": 4,
+      "entering": 209,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "38c876e9-0b2e-55c0-81e9-a18753146af7",
+      "name": "William Hebner",
+      "sourceName": "Hebner, William",
+      "team": 12,
+      "entering": 227,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "9fbc7ecb-d46a-5a27-95fb-5c125ad3a50c",
+      "name": "Paul Magnotta",
+      "sourceName": "Magnotta, Paul",
+      "team": 12,
+      "entering": 208,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "c6a933ac-60dd-51e6-9385-bae9f5c5ec88",
+      "name": "Mike Straut",
+      "sourceName": "Straut, Mike",
+      "team": 12,
+      "entering": 177,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "6e55fb90-cd35-5402-87b2-e2cdcc453fa5",
+      "name": "Joe Degrazia",
+      "sourceName": "Degrazia, Joe",
+      "team": 6,
+      "entering": 190,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "66e3ed83-e9b6-5362-bd10-3854326396d9",
+      "name": "Robert Lane",
+      "sourceName": "Lane, Robert",
+      "team": 6,
+      "entering": 212,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "c01027a4-1fc7-5ac0-a9b3-e2d9794b75b7",
+      "name": "Kolby Tuminelli",
+      "sourceName": "Tuminelli, Kolby",
+      "team": 6,
+      "entering": 204,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "db560a30-5c2e-550a-9be7-ea4f68901ddd",
+      "name": "John Chacko",
+      "sourceName": "Chacko, John",
+      "team": 16,
+      "entering": 184,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "09f25a96-5173-5044-a3f4-29a116ee67b2",
+      "name": "Steve Johnson",
+      "sourceName": "Johnson, Steve",
+      "team": 16,
+      "entering": 204,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "c3d0554e-0a02-5903-aecf-597628f1d796",
+      "name": "Brad Kellogg",
+      "sourceName": "Kellogg, Brad",
+      "team": 16,
+      "entering": 229,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "cf45a1db-0c07-514c-a4ce-7b7a297339c7",
+      "name": "Luke Davis",
+      "sourceName": "Davis, Luke",
+      "team": 10,
+      "entering": 187,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "00abcd7c-cf28-56ca-99ba-09670cb0a82a",
+      "name": "Harvey Kellogg",
+      "sourceName": "Kellogg, Harvey",
+      "team": 10,
+      "entering": 217,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "5fe9a1dd-e083-5c11-8efa-3567789b470a",
+      "name": "Jon Mcdonough",
+      "sourceName": "Mcdonough, Jon",
+      "team": 10,
+      "entering": 204,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "9c6d9818-929d-5f63-86b3-294465ad43a6",
+      "name": "Derek Benson",
+      "sourceName": "Benson, Derek",
+      "team": 8,
+      "entering": 204,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "f8111e51-fd6a-5fdd-b7d5-e46041f75b9c",
+      "name": "Alex Herbst",
+      "sourceName": "Herbst, Alex",
+      "team": 8,
+      "entering": 223,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "ef63cc79-9b59-5c05-b496-2ccef5f6c557",
+      "name": "Don Thomas",
+      "sourceName": "Thomas, Don",
+      "team": 8,
+      "entering": 187,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "b0fafc78-b3c9-5de8-a223-d71f0052f84f",
+      "name": "Tim Bilski",
+      "sourceName": "Bilski, Tim",
+      "team": 9,
+      "entering": 232,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "63a46122-52ed-5c6b-9b1c-d244eedfba28",
+      "name": "Ed Bomba",
+      "sourceName": "Bomba, Ed",
+      "team": 9,
+      "entering": 187,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "0f3b520e-d622-5885-b51c-5f1dcc38fa74",
+      "name": "Michael Marinelli",
+      "sourceName": "Marinelli, Michael",
+      "team": 9,
+      "entering": 198,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "f02f4229-dbcf-5bda-8993-95445bb861e9",
+      "name": "Cindy Grabowski",
+      "sourceName": "Grabowski, Cindy",
+      "team": 2,
+      "entering": 191,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "f19a6d10-8a9b-5c4d-b311-d3dc2efbde96",
+      "name": "Ed Slick",
+      "sourceName": "Slick, Ed",
+      "team": 2,
+      "entering": 211,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "246dc0a5-84de-595a-ae0f-69ef97305581",
+      "name": "Tom Unovitch",
+      "sourceName": "Unovitch, Tom",
+      "team": 2,
+      "entering": 205,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "7b5b8047-7cb0-52ee-bee5-be775a12f2e9",
+      "name": "Jim Allan",
+      "sourceName": "Allan, Jim",
+      "team": null,
+      "entering": 181,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "dc8daca3-7fc1-53a6-8bf2-8d9753d34bc9",
+      "name": "Jim Bosket",
+      "sourceName": "Bosket, Jim",
+      "team": null,
+      "entering": 217,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "27e6a7fb-5115-50d6-a184-8a21ab388286",
+      "name": "Shelly Bosket",
+      "sourceName": "Bosket, Shelly",
+      "team": null,
+      "entering": 175,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "a29ad899-e1d2-5d58-812f-ec4ca5fb3616",
+      "name": "Derek Buffington",
+      "sourceName": "Buffington, Derek",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "128aca1d-11bc-5d7e-b4c1-0f1a971c09db",
+      "name": "Bryan Chase",
+      "sourceName": "Chase, Bryan",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "df2d858f-1b45-55a0-af52-c380dfeefd01",
+      "name": "Bob Cicci",
+      "sourceName": "Cicci, Bob",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "976db77f-e662-58c7-bce6-e6ca9aff8ca9",
+      "name": "Keith Ciero",
+      "sourceName": "Ciero, Keith",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "8dfdd62b-aa8e-5b9f-a226-2979458660bc",
+      "name": "Brian Conserette",
+      "sourceName": "Conserette, Brian",
+      "team": null,
+      "entering": 203,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "d2b7e1e6-432a-50b3-99ab-175de5de7849",
+      "name": "Jacob Curtis",
+      "sourceName": "Curtis, Jacob",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "ad3f1f6b-8ef9-50e4-bb8f-45f9353b75e6",
+      "name": "Tom Curtis",
+      "sourceName": "Curtis, Tom",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "4bbdadb7-bc60-542a-8f02-51b2e7e85ae1",
+      "name": "Keith Danielowski",
+      "sourceName": "Danielowski, Keith",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "c5a4cb5b-dd6f-5bb3-bdb0-5b2d7913f92c",
+      "name": "Don Dinning",
+      "sourceName": "Dinning, Don",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "2922d858-63c7-5807-a474-633806f02d02",
+      "name": "Jack Dunback",
+      "sourceName": "Dunback, Jack",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "b5fcda2a-7b02-58b6-b6a5-01efe9361c64",
+      "name": "Jacob Eby",
+      "sourceName": "Eby, Jacob",
+      "team": null,
+      "entering": 221,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "01f6117d-cf1a-5843-8f5f-62eccce6760a",
+      "name": "Joe Falvo",
+      "sourceName": "Falvo, Joe",
+      "team": null,
+      "entering": 208,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "df1fd73f-e653-5056-8acf-c51b67dc67f7",
+      "name": "Matthew Fiorletta",
+      "sourceName": "Fiorletta, Matthew",
+      "team": null,
+      "entering": 208,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "8fd3d38e-790a-5efa-9f8c-b5e86e93da1c",
+      "name": "Gary Gilbert",
+      "sourceName": "Gilbert, Gary",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "3da423ee-4f01-5901-908d-4068bc31c77d",
+      "name": "Eddie Gray",
+      "sourceName": "Gray, Eddie",
+      "team": null,
+      "entering": 208,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "c6fd0a20-77c5-5543-8506-fceb25d51173",
+      "name": "Katie Heil",
+      "sourceName": "Heil, Katie",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "2c622209-ffb3-588f-a478-ba383c652c65",
+      "name": "Bob Johnson",
+      "sourceName": "Johnson, Bob",
+      "team": null,
+      "entering": 202,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "6e600dc0-eea9-5ceb-ac20-af94e1d338ae",
+      "name": "Justin Kashuba",
+      "sourceName": "Kashuba, Justin",
+      "team": null,
+      "entering": 194,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "68097721-00ff-511a-a87a-a7f7def8cabd",
+      "name": "Kashuba, Iii, Gene",
+      "sourceName": "Kashuba, Iii, Gene",
+      "team": null,
+      "entering": 195,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "21fd9532-562e-5a99-8fc9-bb4f421ec4d4",
+      "name": "Kashuba, Jr, Gene",
+      "sourceName": "Kashuba, Jr, Gene",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "2eeb5379-40a6-56b2-b856-d207f0ec7dab",
+      "name": "Ryan Kelly",
+      "sourceName": "Kelly, Ryan",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "70c21ba7-d60c-580a-b1af-110e5e735973",
+      "name": "Will Kennedy",
+      "sourceName": "Kennedy, Will",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "1d088996-b795-557e-8f2b-1f167ad18a7a",
+      "name": "Gary Kohut",
+      "sourceName": "Kohut, Gary",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "d29893c8-6c5d-578d-a56a-4ce213b86c86",
+      "name": "Adam Loughney",
+      "sourceName": "Loughney, Adam",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "bdd88679-e664-589b-837e-2b8d5401a0ad",
+      "name": "Pat Mcdonough",
+      "sourceName": "Mcdonough, Pat",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "00f50c20-e447-5ead-95ae-b4a047e8960a",
+      "name": "Eric Newton",
+      "sourceName": "Newton, Eric",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "579cb97f-24e2-5aac-b797-048319be819b",
+      "name": "Dean Olver",
+      "sourceName": "Olver, Dean",
+      "team": null,
+      "entering": 223,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "c597b51d-9544-541c-a808-93d37169afe5",
+      "name": "Dave Price",
+      "sourceName": "Price, Dave",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "0ea62543-4d38-5bfd-85eb-84b70a7254f2",
+      "name": "Brandon Riccardi",
+      "sourceName": "Riccardi, Brandon",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "02a113a2-de52-5db0-bee9-35ab45d2f4ff",
+      "name": "Allan Ross",
+      "sourceName": "Ross, Allan",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "5544e36e-da40-568a-962a-d0d2234c1054",
+      "name": "Dave Sawicki",
+      "sourceName": "Sawicki, Dave",
+      "team": null,
+      "entering": 167,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "e7f644b4-17f6-53c8-95a5-2f7ccc03ae5e",
+      "name": "Kevin Scalley",
+      "sourceName": "Scalley, Kevin",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "1698ac32-922d-507b-92a0-4ef814d217e7",
+      "name": "Bruce Smallacombe",
+      "sourceName": "Smallacombe, Bruce",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "b97a9a0c-943f-5854-a99a-37a3699696c3",
+      "name": "Franklin Sr Snyder",
+      "sourceName": "Snyder, Franklin Sr",
+      "team": null,
+      "entering": 185,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "26c4e4d7-2f57-5b09-9685-863353ae3d78",
+      "name": "Husam Thompson",
+      "sourceName": "Thompson, Husam",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "16f1d053-30da-54dd-8274-46a3df5bad18",
+      "name": "Kenneth Thompson",
+      "sourceName": "Thompson, Kenneth",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "4b7ebd89-cc4b-5cb3-bde4-c36a6e5364d1",
+      "name": "Tom Tomaine",
+      "sourceName": "Tomaine, Tom",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "e1697d16-871a-5777-9e7b-564102f22321",
+      "name": "Gary Watson",
+      "sourceName": "Watson, Gary",
+      "team": null,
+      "entering": null,
+      "category": null,
+      "history": []
+    },
+    {
+      "id": "931118d2-21b0-5519-8f5c-6b2f1190afc9",
+      "name": "Kayla Wright",
+      "sourceName": "Wright, Kayla",
+      "team": null,
+      "entering": 182,
+      "category": null,
+      "history": []
+    }
+  ],
+  "schedule": [
+    {
+      "week": 1,
+      "date": "2026-08-27",
+      "kind": "regular",
+      "pairs": [
+        [
+          1,
+          2
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          17,
+          18
+        ]
+      ]
+    },
+    {
+      "week": 2,
+      "date": "2026-09-03",
+      "kind": "regular",
+      "pairs": [
+        [
+          3,
+          6
+        ],
+        [
+          5,
+          1
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          11,
+          10
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          18,
+          16
+        ],
+        [
+          13,
+          17
+        ],
+        [
+          14,
+          15
+        ]
+      ]
+    },
+    {
+      "week": 3,
+      "date": "2026-09-10",
+      "kind": "regular",
+      "pairs": [
+        [
+          5,
+          4
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          9,
+          12
+        ],
+        [
+          11,
+          8
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          15,
+          17
+        ],
+        [
+          18,
+          14
+        ],
+        [
+          16,
+          13
+        ]
+      ]
+    },
+    {
+      "week": 4,
+      "date": "2026-09-17",
+      "kind": "regular",
+      "pairs": [
+        [
+          7,
+          9
+        ],
+        [
+          13,
+          15
+        ],
+        [
+          18,
+          11
+        ],
+        [
+          16,
+          14
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          17,
+          5
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          12,
+          6
+        ]
+      ]
+    },
+    {
+      "week": 5,
+      "date": "2026-09-24",
+      "kind": "regular",
+      "pairs": [
+        [
+          14,
+          1
+        ],
+        [
+          4,
+          16
+        ],
+        [
+          6,
+          17
+        ],
+        [
+          8,
+          13
+        ],
+        [
+          10,
+          15
+        ],
+        [
+          12,
+          18
+        ],
+        [
+          7,
+          2
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          5,
+          11
+        ]
+      ]
+    },
+    {
+      "week": 6,
+      "date": "2026-10-01",
+      "kind": "regular",
+      "pairs": [
+        [
+          6,
+          16
+        ],
+        [
+          1,
+          17
+        ],
+        [
+          4,
+          14
+        ],
+        [
+          10,
+          18
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          11,
+          2
+        ],
+        [
+          3,
+          7
+        ]
+      ]
+    },
+    {
+      "week": 7,
+      "date": "2026-10-08",
+      "kind": "regular",
+      "pairs": [
+        [
+          4,
+          17
+        ],
+        [
+          6,
+          14
+        ],
+        [
+          1,
+          16
+        ],
+        [
+          12,
+          15
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          11,
+          3
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          2,
+          9
+        ]
+      ]
+    },
+    {
+      "week": 8,
+      "date": "2026-10-15",
+      "kind": "regular",
+      "pairs": [
+        [
+          13,
+          7
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          15,
+          18
+        ],
+        [
+          14,
+          2
+        ],
+        [
+          17,
+          16
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          10,
+          12
+        ]
+      ]
+    },
+    {
+      "week": 9,
+      "date": "2026-10-22",
+      "kind": "regular",
+      "pairs": [
+        [
+          2,
+          8
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          12,
+          5
+        ],
+        [
+          13,
+          1
+        ],
+        [
+          15,
+          4
+        ],
+        [
+          18,
+          6
+        ],
+        [
+          14,
+          7
+        ],
+        [
+          16,
+          9
+        ],
+        [
+          11,
+          17
+        ]
+      ]
+    },
+    {
+      "week": 10,
+      "date": "2026-10-29",
+      "kind": "third_position",
+      "pairs": []
+    },
+    {
+      "week": 11,
+      "date": "2026-11-05",
+      "kind": "third_position",
+      "pairs": []
+    },
+    {
+      "week": 12,
+      "date": "2026-11-12",
+      "kind": "regular",
+      "pairs": [
+        [
+          12,
+          3
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          10,
+          2
+        ],
+        [
+          18,
+          4
+        ],
+        [
+          13,
+          6
+        ],
+        [
+          15,
+          1
+        ],
+        [
+          17,
+          9
+        ],
+        [
+          14,
+          11
+        ],
+        [
+          7,
+          16
+        ]
+      ]
+    },
+    {
+      "week": 13,
+      "date": "2026-11-19",
+      "kind": "regular",
+      "pairs": [
+        [
+          10,
+          5
+        ],
+        [
+          12,
+          2
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          15,
+          6
+        ],
+        [
+          18,
+          1
+        ],
+        [
+          13,
+          4
+        ],
+        [
+          16,
+          11
+        ],
+        [
+          17,
+          7
+        ],
+        [
+          9,
+          14
+        ]
+      ]
+    },
+    {
+      "week": 14,
+      "date": "2026-12-03",
+      "kind": "regular",
+      "pairs": [
+        [
+          18,
+          13
+        ],
+        [
+          15,
+          9
+        ],
+        [
+          11,
+          7
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          16,
+          3
+        ],
+        [
+          14,
+          17
+        ],
+        [
+          12,
+          8
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          6,
+          1
+        ]
+      ]
+    },
+    {
+      "week": 15,
+      "date": "2026-12-10",
+      "kind": "regular",
+      "pairs": [
+        [
+          8,
+          14
+        ],
+        [
+          16,
+          10
+        ],
+        [
+          17,
+          12
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          4,
+          11
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          2,
+          18
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          15,
+          5
+        ]
+      ]
+    },
+    {
+      "week": 16,
+      "date": "2026-12-17",
+      "kind": "regular",
+      "pairs": [
+        [
+          16,
+          12
+        ],
+        [
+          17,
+          8
+        ],
+        [
+          14,
+          10
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          6,
+          9
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          5,
+          18
+        ],
+        [
+          13,
+          2
+        ]
+      ]
+    },
+    {
+      "week": 17,
+      "date": "2027-01-07",
+      "kind": "regular",
+      "pairs": [
+        [
+          17,
+          10
+        ],
+        [
+          14,
+          12
+        ],
+        [
+          16,
+          8
+        ],
+        [
+          6,
+          11
+        ],
+        [
+          1,
+          7
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          5,
+          13
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          18,
+          3
+        ]
+      ]
+    },
+    {
+      "week": 18,
+      "date": "2027-01-14",
+      "kind": "regular",
+      "pairs": [
+        [
+          11,
+          15
+        ],
+        [
+          7,
+          18
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          3,
+          17
+        ],
+        [
+          5,
+          14
+        ],
+        [
+          2,
+          16
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          1,
+          12
+        ],
+        [
+          4,
+          8
+        ]
+      ]
+    },
+    {
+      "week": 19,
+      "date": "2027-01-21",
+      "kind": "regular",
+      "pairs": [
+        [
+          9,
+          18
+        ],
+        [
+          11,
+          13
+        ],
+        [
+          7,
+          15
+        ],
+        [
+          5,
+          16
+        ],
+        [
+          2,
+          17
+        ],
+        [
+          3,
+          14
+        ],
+        [
+          4,
+          12
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          1,
+          10
+        ]
+      ]
+    },
+    {
+      "week": 20,
+      "date": "2027-01-28",
+      "kind": "regular",
+      "pairs": [
+        [
+          6,
+          5
+        ],
+        [
+          2,
+          1
+        ],
+        [
+          4,
+          3
+        ],
+        [
+          10,
+          9
+        ],
+        [
+          12,
+          11
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          18,
+          17
+        ],
+        [
+          14,
+          13
+        ],
+        [
+          16,
+          15
+        ]
+      ]
+    },
+    {
+      "week": 21,
+      "date": "2027-02-04",
+      "kind": "third_position",
+      "pairs": []
+    },
+    {
+      "week": 22,
+      "date": "2027-02-11",
+      "kind": "third_position",
+      "pairs": []
+    },
+    {
+      "week": 23,
+      "date": "2027-02-18",
+      "kind": "regular",
+      "pairs": [
+        [
+          4,
+          2
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          12,
+          7
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          15,
+          14
+        ],
+        [
+          16,
+          18
+        ],
+        [
+          17,
+          13
+        ]
+      ]
+    },
+    {
+      "week": 24,
+      "date": "2027-02-25",
+      "kind": "regular",
+      "pairs": [
+        [
+          1,
+          3
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          10,
+          7
+        ],
+        [
+          12,
+          9
+        ],
+        [
+          13,
+          16
+        ],
+        [
+          17,
+          15
+        ],
+        [
+          14,
+          18
+        ]
+      ]
+    },
+    {
+      "week": 25,
+      "date": "2027-03-04",
+      "kind": "regular",
+      "pairs": [
+        [
+          11,
+          18
+        ],
+        [
+          9,
+          7
+        ],
+        [
+          15,
+          13
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          5,
+          17
+        ],
+        [
+          14,
+          16
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          10,
+          8
+        ]
+      ]
+    },
+    {
+      "week": 26,
+      "date": "2027-03-11",
+      "kind": "regular",
+      "pairs": [
+        [
+          17,
+          6
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          16,
+          4
+        ],
+        [
+          15,
+          10
+        ],
+        [
+          18,
+          12
+        ],
+        [
+          13,
+          8
+        ],
+        [
+          11,
+          5
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          3,
+          9
+        ]
+      ]
+    },
+    {
+      "week": 27,
+      "date": "2027-03-18",
+      "kind": "regular",
+      "pairs": [
+        [
+          14,
+          4
+        ],
+        [
+          16,
+          6
+        ],
+        [
+          17,
+          1
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          15,
+          8
+        ],
+        [
+          18,
+          10
+        ],
+        [
+          7,
+          3
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          2,
+          11
+        ]
+      ]
+    },
+    {
+      "week": 28,
+      "date": "2027-03-25",
+      "kind": "regular",
+      "pairs": [
+        [
+          16,
+          1
+        ],
+        [
+          17,
+          4
+        ],
+        [
+          14,
+          6
+        ],
+        [
+          18,
+          8
+        ],
+        [
+          13,
+          10
+        ],
+        [
+          15,
+          12
+        ],
+        [
+          9,
+          2
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          5,
+          7
+        ]
+      ]
+    },
+    {
+      "week": 29,
+      "date": "2027-04-01",
+      "kind": "regular",
+      "pairs": [
+        [
+          18,
+          15
+        ],
+        [
+          7,
+          13
+        ],
+        [
+          11,
+          9
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          12,
+          10
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          6,
+          4
+        ]
+      ]
+    },
+    {
+      "week": 30,
+      "date": "2027-04-08",
+      "kind": "regular",
+      "pairs": [
+        [
+          5,
+          12
+        ],
+        [
+          8,
+          2
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          4,
+          15
+        ],
+        [
+          6,
+          18
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          17,
+          11
+        ],
+        [
+          7,
+          14
+        ],
+        [
+          9,
+          16
+        ]
+      ]
+    },
+    {
+      "week": 31,
+      "date": "2027-04-15",
+      "kind": "regular",
+      "pairs": [
+        [
+          2,
+          10
+        ],
+        [
+          3,
+          12
+        ],
+        [
+          5,
+          8
+        ],
+        [
+          6,
+          13
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          4,
+          18
+        ],
+        [
+          16,
+          7
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          11,
+          14
+        ]
+      ]
+    },
+    {
+      "week": 32,
+      "date": "2027-04-22",
+      "kind": "third_position",
+      "pairs": []
+    },
+    {
+      "week": 33,
+      "date": "2027-04-29",
+      "kind": "third_position",
+      "pairs": []
+    },
+    {
+      "week": 34,
+      "date": "2027-05-06",
+      "kind": "overall_position",
+      "pairs": []
+    }
+  ],
+  "results": [],
+  "adjustments": {},
+  "runs": [],
+  "imports": [],
+  "thirdWinners": {}
+}
