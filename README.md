@@ -103,5 +103,22 @@ Tests cover scoring, fixed results, roster validation, duplicate handling,
 four-game sessions, ramps, repeatability, and conservation of points and odds.
 Remote database execution and browser interaction QA have not been performed.
 
-The authored dist directory is tracked. Sites hosts it privately. Relative
-asset paths also support GitHub Pages; no GitHub Pages deploy was enabled.
+## GitHub Pages
+
+The authored dist directory is tracked. The Pages workflow validates and deploys
+only dist when app files change on main. It can also be run manually.
+
+1. Open repository Settings → Pages.
+2. Under Build and deployment, choose GitHub Actions as the Source.
+3. Open Actions → Deploy league app to GitHub Pages → Run workflow (main).
+4. Use the URL shown by the successful deployment:
+   https://dsr119.github.io/ScratchLeagueAppV1Codex/
+
+The HTML interface is public. Saved league workspaces remain in Supabase,
+protected by the existing administrator policies. Do not commit scoring-history
+files or league backups to this public repository.
+
+To load the prepared private backup, sign in under Setup / rules, select Restore
+backup, then Save league. Restore replaces the current draft; export it first
+if it contains other changes. The JSON backup is not a Table Editor CSV import.
+
