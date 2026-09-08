@@ -1,4 +1,4 @@
-export const MODEL_VERSION='0.1.0-provisional';
+export const MODEL_VERSION='0.2.0-provisional';
 export const sum=a=>a.reduce((s,x)=>s+x,0);
 export const mean=a=>a.length?sum(a)/a.length:0;
 export function matchPoints(a,b){
@@ -58,7 +58,7 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
  // Simultaneous one-game ranking is a provisional multi-team roll-off format.
  const rolloff=ids=>{if(ids.length<2)return ids;const values=ids.map(n=>({n,s:sum(score(n,34,1))})).sort((a,b)=>b.s-a.s);const out=[];for(let i=0;i<values.length;){let j=i+1;while(j<values.length&&values[j].s===values[i].s)j++;out.push(...(j-i>1?rolloff(values.slice(i,j).map(v=>v.n)):[values[i].n]));i=j;}return out;};
  const pointRank=(ids,pts)=>{const ordered=ids.slice().sort((a,b)=>pts[b]-pts[a]),out=[];for(let i=0;i<ordered.length;){let j=i+1;while(j<ordered.length&&pts[ordered[j]]===pts[ordered[i]])j++;out.push(...rolloff(ordered.slice(i,j)));i=j;}return out;};
- const agg=Object.fromEntries(nums.map(n=>[n,{number:n,playoffs:0,champion:0,points:0,rank:0,thirds:[0,0,0],seeds:Array(7).fill(0)}]));
+ const agg=Object.fromEntries(nums.map(n=>[n,{number:n,playoffs:0,champion:0,points:0,rank:0,thirds:[0,0,0],thirdPoints:[0,0,0],seeds:Array(7).fill(0)}]));
  const zero=()=>Object.fromEntries(nums.map(n=>[n,0]));
  for(let run=0;run<iterations;run++){
   const pts=zero(),thirdPts=zero(),pins=zero(),games=zero(),winners=[];
@@ -73,6 +73,7 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
    if(w===11||w===22||w===33){const third=w/11,override=state.thirdWinners?.[third];let winner;
     if(w<=completed&&override){const max=Math.max(...Object.values(thirdPts));if(thirdPts[override]!==max)throw Error('Recorded third winner must be tied for the most third points.');winner=Number(override);}
     else winner=pointRank(nums,thirdPts)[0];
+    for(const n of nums)agg[n].thirdPoints[third-1]+=thirdPts[n];
     winners.push(winner);agg[winner].thirds[third-1]++;for(const n of nums)thirdPts[n]=0;
    }
   }
@@ -85,5 +86,5 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
   let champion=duel(earlyA,earlyB,35,3);champion=duel(champion,seeds[2],36,3);champion=duel(champion,seeds[1],36,3);champion=duel(champion,seeds[0],37,4);agg[champion].champion++;
   if(run%250===0)onProgress(run/iterations);
  }
- return {id:globalThis.crypto?.randomUUID?.()||String(Date.now()),createdAt:new Date().toISOString(),modelVersion:MODEL_VERSION,iterations,seed,completedWeeks:completed,adjustments:structuredClone(state.adjustments),provisional:true,teams:Object.values(agg).map(r=>({...r,playoffs:r.playoffs/iterations,champion:r.champion/iterations,points:r.points/iterations,rank:r.rank/iterations,thirds:r.thirds.map(n=>n/iterations),seeds:r.seeds.map(n=>n/iterations)}))};
+ return {id:globalThis.crypto?.randomUUID?.()||String(Date.now()),createdAt:new Date().toISOString(),modelVersion:MODEL_VERSION,iterations,seed,completedWeeks:completed,adjustments:structuredClone(state.adjustments),provisional:true,teams:Object.values(agg).map(r=>({...r,playoffs:r.playoffs/iterations,champion:r.champion/iterations,points:r.points/iterations,rank:r.rank/iterations,thirds:r.thirds.map(n=>n/iterations),thirdPoints:r.thirdPoints.map(n=>n/iterations),seeds:r.seeds.map(n=>n/iterations)}))};
 }

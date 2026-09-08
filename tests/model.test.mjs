@@ -42,6 +42,10 @@ test('Monte Carlo conserves qualification and championship counts and repeats by
  assert.ok(Math.abs(a.teams.reduce((s,t)=>s+t.playoffs,0)-7)<1e-9);
  assert.ok(Math.abs(a.teams.reduce((s,t)=>s+t.champion,0)-1)<1e-9);
  assert.ok(Math.abs(a.teams.reduce((s,t)=>s+t.points,0)-34*81)<1e-9);
+ for(let third=0;third<3;third++){
+  assert.ok(Math.abs(a.teams.reduce((n,t)=>n+t.thirdPoints[third],0)-11*81)<1e-9);
+  assert.ok(Math.abs(a.teams.reduce((n,t)=>n+t.thirds[third],0)-1)<1e-9);
+ }
  assert.equal(s.results.length,0);
 });
 test('Finished regular season remains fixed and repeat third winner gets seed 1',()=>{
@@ -52,6 +56,9 @@ test('Finished regular season remains fixed and repeat third winner gets seed 1'
  s.thirdWinners={1:1,2:1,3:1};const r=simulate(s,20,44);
  assert.equal(r.teams.find(t=>t.number===1).seeds[0],1);
  assert.equal(r.teams.find(t=>t.number===1).points,306);
+ assert.deepEqual(r.teams.find(t=>t.number===1).thirdPoints,[99,99,99]);
+ assert.deepEqual(r.teams.find(t=>t.number===1).thirds,[1,1,1]);
+ assert.deepEqual(r.teams.find(t=>t.number===2).thirdPoints,[0,0,0]);
  assert.equal(r.teams.find(t=>t.number===2).points,0);
  assert.ok(Math.abs(r.teams.reduce((s,t)=>s+t.playoffs,0)-7)<1e-9);
 });
