@@ -62,3 +62,39 @@ test('Finished regular season remains fixed and repeat third winner gets seed 1'
  assert.equal(r.teams.find(t=>t.number===2).points,0);
  assert.ok(Math.abs(r.teams.reduce((s,t)=>s+t.playoffs,0)-7)<1e-9);
 });
+
+test('Weekly projections conserve points and reflect fixed results and opponent uncertainty',()=>{
+ const s=seed();const imported=weeklyPreview(weekCSV(s,1),s);s.results.push(imported.result);
+ const run=simulate(s,30,42);
+ assert.equal(run.weekly.length,34);
+ for(const w of run.weekly){
+  assert.equal(w.teams.length,18);
+  assert.ok(Math.abs(w.teams.reduce((a,t)=>a+t.points,0)-81)<1e-8);
+  for(const t of w.teams){
+   assert.ok(Math.abs(t.opponents.reduce((a,o)=>a+o.probability,0)-1)<1e-8);
+   assert.ok(Math.abs(t.opponents.reduce((a,o)=>a+o.points*o.probability,0)-t.points)<1e-8);
+   assert.ok(Math.abs(t.opponents.reduce((a,o)=>a+o.win*o.probability,0)-t.win)<1e-8);
+   for(const o of t.opponents){const reverse=w.teams.find(x=>x.number===o.number).opponents.find(x=>x.number===t.number);assert.equal(o.probability,reverse.probability);assert.ok(Math.abs(o.points+reverse.points-9)<1e-8);}
+  }
+ }
+ for(const m of imported.result.matches){const pts=matchPoints(m.a,m.b);[m.teamA,m.teamB].forEach((n,i)=>{const t=run.weekly[0].teams.find(t=>t.number===n);assert.equal(t.points,pts[i]);assert.equal(t.win,pts[i]>4.5?1:0);assert.equal(t.tie,pts[i]===4.5?1:0);});}
+ assert.equal(run.weekly[0].actual,true);
+ assert.equal(run.weekly[1].actual,false);
+ assert.ok(run.weekly[9].teams.some(t=>t.opponents.length>1));
+ for(const t of run.teams)assert.ok(Math.abs(run.weekly.reduce((a,w)=>a+w.teams.find(x=>x.number===t.number).points,0)-t.points)<1e-8);
+});
+
+test('Debug report supports reproduction, flags corrupted totals, and excludes auth context',async()=>{
+ const {createDebugReport,inputFingerprint}=await import('../dist/debug.js');
+ const s=seed();s.results.push(weeklyPreview(weekCSV(s,1),s).result);
+ const r=simulate(s,10,72);r.fingerprint=inputFingerprint(s);r.inputSnapshot=structuredClone(s);s.runs.push(r);
+ const report=createDebugReport(s,r,{access_token:'secret-token',password:'secret-password',signedIn:true});
+ assert.equal(report.summary.failedChecks,0);
+ assert.deepEqual(simulate(report.selectedSimulation.inputSnapshot,r.iterations,r.seed).teams,r.teams);
+ assert.ok(!JSON.stringify(report).includes('secret-token'));assert.ok(!JSON.stringify(report).includes('secret-password'));
+ s.results[0].matches[0].a[0]++;
+ const bad=createDebugReport(s,r);
+ assert.equal(bad.checks.find(c=>c.name==='Week 1 team totals').status,'fail');
+ assert.equal(bad.checks.find(c=>c.name==='Run matches current inputs').status,'fail');
+ assert.equal(createDebugReport(seed(),null).summary.hasSimulation,false);
+});

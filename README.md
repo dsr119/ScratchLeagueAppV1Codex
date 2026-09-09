@@ -122,3 +122,20 @@ To load the prepared private backup, sign in under Setup / rules, select Restore
 backup, then Save league. Restore replaces the current draft; export it first
 if it contains other changes. The JSON backup is not a Table Editor CSV import.
 
+
+## Team weekly odds and diagnostics
+
+Team weekly odds shows all 34 regular-season matchups, actual results for imported
+weeks, and forecast win/tie probabilities and expected points for future weeks.
+Winning a week means taking more than 4.5 of the nine available points. Position
+round opponents are distributions across simulated standings; expanded rows show
+conditional win probabilities for each possible opponent. Rerun older simulations
+to populate weekly forecasts. Retained runs show changes in playoff and title odds
+over time (up to 12 runs); they are not reconstructed historical forecasts.
+
+Download debug report is available on Team weekly odds and Setup & rules. The JSON
+contains the current league data, selected simulation and original inputs, seed,
+ratings, import log, current error, and arithmetic/structural checks. It excludes
+auth session storage and credentials. It includes personal scoring histories and
+is intended to be shared privately for review, never committed to this repository.
+Passing checks do not establish statistical calibration or server health.

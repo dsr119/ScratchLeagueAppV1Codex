@@ -1,4 +1,4 @@
-export const MODEL_VERSION='0.2.0-provisional';
+export const MODEL_VERSION='0.3.0-provisional';
 export const sum=a=>a.reduce((s,x)=>s+x,0);
 export const mean=a=>a.length?sum(a)/a.length:0;
 export function matchPoints(a,b){
@@ -59,6 +59,7 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
  const rolloff=ids=>{if(ids.length<2)return ids;const values=ids.map(n=>({n,s:sum(score(n,34,1))})).sort((a,b)=>b.s-a.s);const out=[];for(let i=0;i<values.length;){let j=i+1;while(j<values.length&&values[j].s===values[i].s)j++;out.push(...(j-i>1?rolloff(values.slice(i,j).map(v=>v.n)):[values[i].n]));i=j;}return out;};
  const pointRank=(ids,pts)=>{const ordered=ids.slice().sort((a,b)=>pts[b]-pts[a]),out=[];for(let i=0;i<ordered.length;){let j=i+1;while(j<ordered.length&&pts[ordered[j]]===pts[ordered[i]])j++;out.push(...rolloff(ordered.slice(i,j)));i=j;}return out;};
  const agg=Object.fromEntries(nums.map(n=>[n,{number:n,playoffs:0,champion:0,points:0,rank:0,thirds:[0,0,0],thirdPoints:[0,0,0],seeds:Array(7).fill(0)}]));
+ const weekly=Array.from({length:34},(_,i)=>({week:i+1,teams:Object.fromEntries(nums.map(n=>[n,{number:n,points:0,win:0,tie:0,opponents:{}}]))}));
  const zero=()=>Object.fromEntries(nums.map(n=>[n,0]));
  for(let run=0;run<iterations;run++){
   const pts=zero(),thirdPts=zero(),pins=zero(),games=zero(),winners=[];
@@ -69,7 +70,11 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
    const pairs=actual?null:schedule.pairs.length?schedule.pairs:positionPairs(rank(w===34?pts:thirdPts).map(number=>({number})));
    const shared=normal(rng)*5;
    const matches=actual?actual.matches:pairs.map(([a,b])=>({teamA:a,teamB:b,a:score(a,w,3,shared),b:score(b,w,3,shared)}));
-   for(const m of matches){const p=matchPoints(m.a,m.b);[m.teamA,m.teamB].forEach((n,i)=>{pts[n]+=p[i];thirdPts[n]+=p[i];pins[n]+=sum(i?m.b:m.a);games[n]+=3;});}
+   for(const m of matches){const p=matchPoints(m.a,m.b);[m.teamA,m.teamB].forEach((n,i)=>{const opponent=i?m.teamA:m.teamB,entry=weekly[w-1].teams[n];
+    entry.points+=p[i];entry.win+=p[i]>4.5?1:0;entry.tie+=p[i]===4.5?1:0;
+    const versus=entry.opponents[opponent]??={number:opponent,count:0,points:0,win:0,tie:0};
+    versus.count++;versus.points+=p[i];versus.win+=p[i]>4.5?1:0;versus.tie+=p[i]===4.5?1:0;
+    pts[n]+=p[i];thirdPts[n]+=p[i];pins[n]+=sum(i?m.b:m.a);games[n]+=3;});}
    if(w===11||w===22||w===33){const third=w/11,override=state.thirdWinners?.[third];let winner;
     if(w<=completed&&override){const max=Math.max(...Object.values(thirdPts));if(thirdPts[override]!==max)throw Error('Recorded third winner must be tied for the most third points.');winner=Number(override);}
     else winner=pointRank(nums,thirdPts)[0];
@@ -86,5 +91,5 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
   let champion=duel(earlyA,earlyB,35,3);champion=duel(champion,seeds[2],36,3);champion=duel(champion,seeds[1],36,3);champion=duel(champion,seeds[0],37,4);agg[champion].champion++;
   if(run%250===0)onProgress(run/iterations);
  }
- return {id:globalThis.crypto?.randomUUID?.()||String(Date.now()),createdAt:new Date().toISOString(),modelVersion:MODEL_VERSION,iterations,seed,completedWeeks:completed,adjustments:structuredClone(state.adjustments),provisional:true,teams:Object.values(agg).map(r=>({...r,playoffs:r.playoffs/iterations,champion:r.champion/iterations,points:r.points/iterations,rank:r.rank/iterations,thirds:r.thirds.map(n=>n/iterations),thirdPoints:r.thirdPoints.map(n=>n/iterations),seeds:r.seeds.map(n=>n/iterations)}))};
+ return {id:globalThis.crypto?.randomUUID?.()||String(Date.now()),createdAt:new Date().toISOString(),modelVersion:MODEL_VERSION,iterations,seed,completedWeeks:completed,adjustments:structuredClone(state.adjustments),provisional:true,weekly:weekly.map(row=>({week:row.week,actual:row.week<=completed,teams:Object.values(row.teams).map(t=>({...t,points:t.points/iterations,win:t.win/iterations,tie:t.tie/iterations,opponents:Object.values(t.opponents).map(o=>({number:o.number,probability:o.count/iterations,points:o.points/o.count,win:o.win/o.count,tie:o.tie/o.count}))}))})),teams:Object.values(agg).map(r=>({...r,playoffs:r.playoffs/iterations,champion:r.champion/iterations,points:r.points/iterations,rank:r.rank/iterations,thirds:r.thirds.map(n=>n/iterations),thirdPoints:r.thirdPoints.map(n=>n/iterations),seeds:r.seeds.map(n=>n/iterations)}))};
 }

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 const root=new URL('../',import.meta.url);
-for(const file of ['app.js','model.js','imports.js','cloud.js','simulation-worker.js']){
+for(const file of ['app.js','model.js','imports.js','cloud.js','simulation-worker.js','debug.js']){
  execFileSync(process.execPath,['--check',new URL('dist/'+file,root).pathname]);
  const code=fs.readFileSync(new URL('dist/'+file,root),'utf8');
  for(const m of code.matchAll(/from ['"]\.\/([^'"]+)['"]/g))if(!fs.existsSync(new URL('dist/'+m[1],root)))throw Error('Missing module '+m[1]);
