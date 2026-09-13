@@ -26,6 +26,29 @@ export function historyPreview(rows,season,filename){
 }
 export function mergeHistory(existing,sessions){const next=structuredClone(existing),duplicates=[];for(const s of sessions){const old=next.find(h=>h.season===s.season&&h.date===s.date);if(old){if(JSON.stringify(old.scores)!==JSON.stringify(s.scores))throw Error(`Conflicting scores on ${s.date}. Existing history was preserved.`);duplicates.push(s.date);}else next.push(s);}return{history:next.sort((a,b)=>a.date.localeCompare(b.date)),duplicates};}
 export function findBowler(state,value){const n=norm(value),matches=state.bowlers.filter(b=>[b.name,b.sourceName,...(b.aliases||[])].some(x=>norm(x)===n));return matches.length===1?matches[0]:null;}
+// Stage name resolutions without changing the league or the uploaded rows.
+export function prepareWeeklyImport(rows,state,resolutions={}){
+ const resolved=structuredClone(rows),bowlers=state.bowlers.slice(),newBowlers=[],unmatched=[],errors=[];
+ const headers=rows[0]?.map(norm)||[],column=headers.includes('bowler')?headers.indexOf('bowler'):headers.indexOf('name');
+ for(const r of records(rows)){
+  const name=String(r.bowler??r.name??'').trim();
+  if(findBowler(state,name))continue;
+  unmatched.push({line:r.line,name,team:r.teamnumber??r.team??r.teamno});
+  const choice=resolutions[r.line];
+  if(!choice)continue;
+  let bowler;
+  if(choice==='new'){
+   if(!norm(name)||name.length>100){errors.push({line:r.line,message:'A substitute needs a name of 1–100 characters.'});continue;}
+   if(bowlers.some(b=>[b.name,b.sourceName,...(b.aliases||[])].some(n=>norm(n)===norm(name)))){errors.push({line:r.line,message:'This name already exists. Match an existing bowler instead of adding a duplicate.'});continue;}
+   bowler={id:globalThis.crypto.randomUUID(),name,sourceName:name,team:null,entering:null,category:null,history:[]};
+   bowlers.push(bowler);newBowlers.push(bowler);
+  }else bowler=state.bowlers.find(b=>b.id===choice);
+  if(!bowler){errors.push({line:r.line,message:'Selected bowler no longer exists. Choose again.'});continue;}
+  if(column>=0)resolved[r.line-1][column]=bowler.name;
+ }
+ const preview=weeklyPreview(resolved,{...state,bowlers});
+ return {...preview,errors:[...errors,...preview.errors],unmatched,newBowlers};
+}
 export function weeklyPreview(rows,state){
  const errors=[],entries=[];
  for(const r of records(rows)){try{
@@ -45,6 +68,16 @@ export function weeklyPreview(rows,state){
  if(errors.length)return{errors};
  const matches=weekPairs(state,week).map(([teamA,teamB])=>{const a=entries.filter(e=>e.team===teamA),b=entries.filter(e=>e.team===teamB);const total=p=>[0,1,2].map(i=>p.reduce((s,r)=>s+r.scores[i],0));return{teamA,teamB,a:total(a),b:total(b),players:[...a,...b]};});
  return{errors:[],result:{week,date:state.schedule.find(s=>s.week===week).date,matches},entries:entries.length};
+}
+export function commitWeeklyImport(state,rows,resolutions={},filename='Weekly CSV'){
+ const p=prepareWeeklyImport(rows,state,resolutions);
+ if(p.errors.length)throw Error(p.errors.map(e=>`Row ${e.line}: ${e.message}`).join('\n'));
+ const players=p.result.matches.flatMap(m=>m.players),teams=p.result.matches.flatMap(m=>[m.teamA,m.teamB]);
+ if(players.length!==p.entries||new Set(players.map(p=>p.bowlerId)).size!==p.entries||teams.length!==state.teams.length||new Set(teams).size!==state.teams.length)throw Error('The week does not contain every team and player exactly once. Nothing was imported.');
+ const next=structuredClone(state);
+ next.bowlers.push(...p.newBowlers);next.results.push(p.result);
+ next.imports.push({filename,at:new Date().toISOString(),description:`Week ${p.result.week}: ${p.entries} bowlers, ${p.result.matches.length} matches; ${p.newBowlers.length} substitutes added`});
+ return next;
 }
 // Read standard XLSX ZIP containers using the browser's native decompressor.
 // No formulas are executed; only cached cell values are imported.
