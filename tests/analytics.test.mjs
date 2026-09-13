@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {calculateStats,calculateAllPlay,analyticsChecks,percentile,defaultMinimum} from '../dist/stats.js';
+import {calculateStats,calculateAllPlay,analyticsChecks,percentile,defaultMinimum,assignEnteringCategories} from '../dist/stats.js';
 import {statsView,allPlayView,teamAllPlayView,statsDetail,sortAnalytics} from '../dist/stats-ui.js';
 import {weeklyPreview,prepareWeeklyImport} from '../dist/imports.js';
 import {createDebugReport} from '../dist/debug.js';
@@ -11,6 +11,18 @@ function week(s,w,score=()=>[200,200,200]){
  const p=weeklyPreview(rows,s);assert.deepEqual(p.errors,[]);s.results.push(p.result);return rows;
 }
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
+test('Entering-average categories split only regulars equally, persist and ignore weekly performance',()=>{
+ const s=seed(),before=structuredClone(s);assert.equal(assignEnteringCategories(s),true);
+ for(const c of ['A','B','C'])assert.equal(s.bowlers.filter(b=>b.category===c).length,18);
+ assert.deepEqual(s.teams,before.teams);assert.deepEqual(s.results,before.results);
+ assert.ok(s.bowlers.filter(b=>!b.team).every(b=>b.category===null));
+ const averages=c=>s.bowlers.filter(b=>b.category===c).map(b=>b.entering);
+ assert.ok(Math.min(...averages('A'))>=Math.max(...averages('B')));assert.ok(Math.min(...averages('B'))>=Math.max(...averages('C')));
+ const copy=JSON.parse(JSON.stringify(s));assert.equal(assignEnteringCategories(copy),false);assert.deepEqual(copy,s);
+ week(s,1,()=>[300,300,300]);assert.equal(assignEnteringCategories(s),false);
+ const invalid=seed();invalid.bowlers.find(b=>b.id===invalid.teams[0].players[0]).entering=null;const unchanged=structuredClone(invalid);
+ assert.throws(()=>assignEnteringCategories(invalid),/entering average/);assert.deepEqual(invalid,unchanged);
+});
 test('All-play all-tie week awards 76.5 / 153 points and 17 ties per team',()=>{
  const s=seed();week(s,1);const before=structuredClone(s),ap=calculateAllPlay(s);
  assert.equal(ap.weeks[0].comparisons.length,153);

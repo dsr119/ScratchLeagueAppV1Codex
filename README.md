@@ -86,8 +86,11 @@ from Week 3 onward; historical views default to nine. Clear the minimum input
 to restore the automatic rule. All leaderboards/cards honor these filters.
 Click a bowler for their distributions, milestones, real sessions and weekly
 average chart. Category can be set there, then persisted with **Save league**.
-The original seed has no category assignments; none are inferred from roster
-order or average. Category metadata does not change team membership.
+Categories are assigned on load from entering averages among regular roster
+bowlers: highest third A, middle third B, lowest third C (18 each for this
+league). Equal averages use alphabetical names, then bowler ID. Substitutes
+are excluded. Save league persists assignments; weekly results do not change
+them. Category metadata does not change team membership.
 
 ### Exact individual formulas
 
@@ -282,9 +285,9 @@ The scoring audit checks row counts, identities, duplicates, team-game sums,
 averages, high series, blind exclusion and independence from model/history.
 
 A/B/C rankings are disabled until all regular players have valid categories.
-No migration infers draft categories from averages or roster order. The available
-September 9 debug workspace has no categories and only Weeks 1–2. The older
-53-bowler draft planning workbook is insufficient to establish the final
-54-bowler category list. Populating authoritative assignments still requires
-that final draft source. These facts describe the supplied snapshot, not the
-current live database.
+Per the league owner's updated instruction, categories are derived from entering
+averages in equal thirds, not historical draft labels. The assignment method,
+entering averages and assigned categories are included in workspace debug data.
+The September 9 snapshot contains only Weeks 1–2; this describes the supplied
+snapshot, not the current live database. Importing Week 3 and saving the league
+is required to persist those scores in the user's workspace.

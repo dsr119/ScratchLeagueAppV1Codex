@@ -26,6 +26,17 @@ export function categoryReadiness(state){
  const regularIds=state.teams.flatMap(t=>t.players),missing=regularIds.filter(id=>!['A','B','C'].includes(state.bowlers.find(b=>b.id===id)?.category));
  return {ready:regularIds.length>0&&missing.length===0,regularCount:regularIds.length,missing};
 }
+export function assignEnteringCategories(state){
+ const ids=state.teams.flatMap(t=>t.players),rosterKey=ids.slice().sort().join('|'),method='entering-average-thirds-v1';
+ if(state.categoryAssignment?.method===method&&state.categoryAssignment.rosterKey===rosterKey&&categoryReadiness(state).ready)return false;
+ if(ids.length%3||new Set(ids).size!==ids.length)throw Error('Category assignment needs distinct regular bowlers in three equal groups.');
+ const players=ids.map(id=>state.bowlers.find(b=>b.id===id));
+ if(players.some(b=>!b||!Number.isFinite(b.entering)))throw Error('Every regular bowler needs an entering average before categories can be assigned.');
+ players.sort((a,b)=>b.entering-a.entering||a.name.localeCompare(b.name,'en')||a.id.localeCompare(b.id));
+ const size=players.length/3;players.forEach((b,i)=>{b.category=['A','B','C'][Math.floor(i/size)];});
+ state.categoryAssignment={method,rosterKey,groupSize:size,tieRule:'Alphabetical display name, then bowler ID',assignments:players.map(b=>({bowlerId:b.id,entering:b.entering,category:b.category}))};
+ return true;
+}
 export function percentile(values,value,lower=false){if(values.length<=1)return 50;const less=values.filter(x=>x<value).length,equal=values.filter(x=>x===value).length;const p=100*(less+(equal-1)/2)/(values.length-1);return lower?100-p:p;}
 export function calculateStats(state,{source='current',minimum=defaultMinimum(state,source),category='all'}={}){
  minimum=Number.isFinite(Number(minimum))?Math.max(1,Math.floor(Number(minimum))):defaultMinimum(state,source);
