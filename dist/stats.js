@@ -1,9 +1,10 @@
 import {currentWeek,mean,sum,matchPoints,standings} from './model.js';
 import {getCurrentSeasonStats,summarizePlayerSessions} from './actual-season.js';
 
-export const STATS_VERSION='1.0.0';
+export const STATS_VERSION='1.1.0';
 export const RATING_WEIGHTS={average:.45,consistency:.20,highGame:.10,highSeries:.10,lowGame:.10,aboveRate:.05};
 export const STATS_FORMULAS={
+ seriesLeaders:'Current season only: count each week a bowler has the highest actual three-game series on their weekly team or across both teams in their recorded matchup (lane pair). All tied leaders receive one count. Blinds, absences and simulated scores cannot win. Team counts require all three player rows; pair counts require both complete teams. Missing or unrecognized player rows skip that comparison. Filters select displayed bowlers only; opponents are always included. Historical matchup data is unavailable.',
  rating:'Qualified-league midrank percentiles (ties share a percentile; one bowler = 50; unavailable series component = 50). Weighted score = 45% average + 20% consistency + 10% high game + 10% high three-game series + 10% low game + 5% fraction of games strictly above own selected-period average. Final rating = 50 + games/(games+18) × (weighted score − 50). Category filters do not change league percentiles. Rating is descriptive, not a forecast.',
  consistency:'Sample standard deviation; lower is better. For rating only, variance is stabilized: ((games−1) × player variance + 12 × pooled within-player variance)/(games−1+12). Pooled variance uses all qualified bowlers; fallback variance is 900. No standard deviation for fewer than two games.',
  improvement:'Selected-period average minus recorded entering average; percent = 100 × difference / entering average. Missing entering averages stay unavailable; no model-default baseline is invented. Historical improvement uses the currently recorded entering average, not a reconstructed historical baseline.',
@@ -38,11 +39,39 @@ export function assignEnteringCategories(state){
  return true;
 }
 export function percentile(values,value,lower=false){if(values.length<=1)return 50;const less=values.filter(x=>x<value).length,equal=values.filter(x=>x===value).length;const p=100*(less+(equal-1)/2)/(values.length-1);return lower?100-p:p;}
+function addSeriesLeaderCounts(state,bowlers){
+ const byId=new Map(bowlers.map(b=>[b.id,b])),sessions=new Map();
+ for(const b of bowlers){
+  b.teamSeriesLeads=0;b.pairSeriesLeads=0;
+  for(const s of b.sessions)sessions.set(`${s.week}|${b.id}`,s);
+ }
+ const award=(players,key)=>{
+  if(!players.length)return;
+  const high=Math.max(...players.map(p=>p.series));
+  for(const p of players)if(p.series===high)byId.get(p.bowlerId)[key]++;
+ };
+ for(const r of state.results||[]){
+  if(!Number.isInteger(r.week)||r.week<1||r.week>34||!isReal(r))continue;
+  for(const m of r.matches||[]){
+   if(m.teamA===m.teamB)continue;
+   const teams=[m.teamA,m.teamB].map(team=>{
+    const rows=(m.players||[]).filter(p=>p.team===team);
+    const complete=rows.length===3&&new Set(rows.map(p=>p.bowlerId)).size===3&&rows.every(p=>byId.has(p.bowlerId)&&['actual','blind','absent','vacant','non-bowled'].includes(p.type)&&!p.simulated&&p.actual!==false);
+    const actual=rows.filter(p=>p.type==='actual').map(p=>sessions.get(`${r.week}|${p.bowlerId}`)).filter(Boolean);
+    if(complete)award(actual,'teamSeriesLeads');
+    return {complete,actual};
+   });
+   if(teams.every(t=>t.complete))award(teams.flatMap(t=>t.actual),'pairSeriesLeads');
+  }
+ }
+}
 export function calculateStats(state,{source='current',minimum=defaultMinimum(state,source),category='all'}={}){
  minimum=Number.isFinite(Number(minimum))?Math.max(1,Math.floor(Number(minimum))):defaultMinimum(state,source);
  const sessions=source==='current'?[]:state.bowlers.map(b=>getHistoricalSessions(b,source));
  const lastWeek=source==='current'?currentWeek(state):Math.max(0,...sessions.flatMap(s=>s.map(h=>Number.isInteger(h.week)?h.week:0)));
  const bowlers=state.bowlers.map((b,i)=>source==='current'?getCurrentSeasonStats(state,b.id):summarizePlayerSessions(b,sessions[i],lastWeek));
+ if(source==='current')addSeriesLeaderCounts(state,bowlers);
+ else for(const b of bowlers){b.teamSeriesLeads=null;b.pairSeriesLeads=null;}
  const qualified=bowlers.filter(b=>b.games>=minimum),degrees=sum(qualified.map(b=>Math.max(0,b.games-1)));
  const pooledVariance=degrees?sum(qualified.map(b=>(b.variance??0)*Math.max(0,b.games-1)))/degrees:900;
  for(const b of qualified)b.stabilizedSD=Math.sqrt(((b.games-1)*(b.variance??0)+12*pooledVariance)/(b.games-1+12));
