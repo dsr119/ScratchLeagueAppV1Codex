@@ -64,6 +64,8 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
  // Simultaneous one-game ranking is a provisional multi-team roll-off format.
  const rolloff=ids=>{if(ids.length<2)return ids;const values=ids.map(n=>({n,s:sum(score(n,34,1))})).sort((a,b)=>b.s-a.s);const out=[];for(let i=0;i<values.length;){let j=i+1;while(j<values.length&&values[j].s===values[i].s)j++;out.push(...(j-i>1?rolloff(values.slice(i,j).map(v=>v.n)):[values[i].n]));i=j;}return out;};
  const pointRank=(ids,pts)=>{const ordered=ids.slice().sort((a,b)=>pts[b]-pts[a]),out=[];for(let i=0;i<ordered.length;){let j=i+1;while(j<ordered.length&&pts[ordered[j]]===pts[ordered[i]])j++;out.push(...rolloff(ordered.slice(i,j)));i=j;}return out;};
+ // Seeding among qualified teams: points, then calculated team average, then a roll-off if exactly equal.
+ const seedRank=(ids,pts,pins,games)=>{const avg=n=>pins[n]/(games[n]||1),ordered=ids.slice().sort((a,b)=>pts[b]-pts[a]||avg(b)-avg(a)),out=[];for(let i=0;i<ordered.length;){let j=i+1;while(j<ordered.length&&pts[ordered[j]]===pts[ordered[i]]&&avg(ordered[j])===avg(ordered[i]))j++;out.push(...rolloff(ordered.slice(i,j)));i=j;}return out;};
  const agg=Object.fromEntries(nums.map(n=>[n,{number:n,playoffs:0,champion:0,points:0,rank:0,thirds:[0,0,0],thirdPoints:[0,0,0],seeds:Array(7).fill(0)}]));
  const weekly=Array.from({length:34},(_,i)=>({week:i+1,teams:Object.fromEntries(nums.map(n=>[n,{number:n,points:0,win:0,tie:0,opponents:{}}]))}));
  const zero=()=>Object.fromEntries(nums.map(n=>[n,0]));
@@ -91,8 +93,9 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
   }
   const ranked=rank(pts);ranked.forEach((n,i)=>{agg[n].points+=pts[n];agg[n].rank+=i+1;});
   const unique=[...new Set(winners)],multiple=unique.find(n=>winners.filter(x=>x===n).length>1);
-  let seeds=pointRank(unique,pts);if(multiple)seeds=[multiple,...seeds.filter(n=>n!==multiple)];
-  seeds.push(...pointRank(nums.filter(n=>!unique.includes(n)),pts).slice(0,7-seeds.length));
+  let seeds=seedRank(unique,pts,pins,games);if(multiple)seeds=[multiple,...seeds.filter(n=>n!==multiple)];
+  // Qualification ties at the cutoff still use a roll-off; qualified wildcards are then seeded by points and average.
+  seeds.push(...seedRank(pointRank(nums.filter(n=>!unique.includes(n)),pts).slice(0,7-seeds.length),pts,pins,games));
   seeds.forEach((n,i)=>{agg[n].playoffs++;agg[n].seeds[i]++;});
   const earlyA=duel(seeds[6],seeds[3],35,3),earlyB=duel(seeds[5],seeds[4],35,3);
   let champion=duel(earlyA,earlyB,35,3);champion=duel(champion,seeds[2],36,3);champion=duel(champion,seeds[1],36,3);champion=duel(champion,seeds[0],37,4);agg[champion].champion++;

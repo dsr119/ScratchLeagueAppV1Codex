@@ -196,8 +196,9 @@ four-game championship; tied matches use a one-game roll-off. Actual third
 roll-off winners can be recorded as overrides.
 
 Pending assumptions are visible in Setup: exactly tied points/team average
-uses team-number order for position rounds; tied seeds and multi-team
-qualification use simultaneous one-game scores; calculated team average is
+uses team-number order for position rounds; tied seeds among qualified teams
+use calculated team average (roll-off only if exactly equal); multi-team
+qualification ties use simultaneous one-game scores; calculated team average is
 season-to-date team pins divided by team games.
 
 Future games assume the regular lineup attends. Forecasting absences and

@@ -106,3 +106,13 @@ test('True-average uncertainty narrows with games and is wider without an enteri
  assert.ok(none.meanSd>entering.meanSd&&entering.meanSd>some.meanSd&&some.meanSd>many.meanSd);
  assert.ok(many.meanSd>=3);
 });
+
+test('Qualified teams tied on points are seeded by calculated team average',()=>{
+ const s=seed(),high={1:900,3:800,5:850};
+ for(let w=1;w<=34;w++){
+  const pairs=Array.from({length:9},(_,i)=>[i*2+1,i*2+2]);
+  s.results.push({week:w,matches:pairs.map(([a,b])=>high[a]?{teamA:a,teamB:b,a:[high[a],high[a],high[a]],b:[0,0,0],players:[]}:{teamA:a,teamB:b,a:[600,600,600],b:[600,600,600],players:[]})});
+ }
+ s.thirdWinners={1:1,2:1,3:1};const r=simulate(s,20,9),seedOf=n=>r.teams.find(t=>t.number===n).seeds;
+ assert.equal(seedOf(1)[0],1);assert.equal(seedOf(5)[1],1);assert.equal(seedOf(3)[2],1);
+});
