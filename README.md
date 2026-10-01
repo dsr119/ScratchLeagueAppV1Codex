@@ -180,8 +180,14 @@ the existing model, imports, substitute flow, analytics and rendered sections.
 Not backtested. Historical mean is recency-weighted and anchored with 12 games
 at entering average. Current scores blend with 30 games of prior weight.
 Standard deviation shrinks toward 30 pins with 24 games of weight. Bounded,
-rounded normal scores include a shared condition effect (SD 5) and a bowler
-session effect (SD 8). These are initial assumptions, not fitted settings.
+rounded normal scores include a lane-pair condition effect (SD 5, shared by
+the two teams on a pair) and a bowler session effect (SD 8).
+
+Each trial also draws every bowler's true average once around the model
+average. Its SD starts at 8 pins with an entering average (20 without), narrows
+as recency-weighted games accumulate, and never drops below 3 pins, so thin
+histories widen the forecast instead of being treated as exact. These are
+initial assumptions, not fitted settings.
 
 Actual results remain fixed. Position pairings are recalculated per trial.
 Unique third winners qualify first; season points fill remaining places to

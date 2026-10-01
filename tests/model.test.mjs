@@ -98,3 +98,11 @@ test('Debug report supports reproduction, flags corrupted totals, and excludes a
  assert.equal(bad.checks.find(c=>c.name==='Run matches current inputs').status,'fail');
  assert.equal(createDebugReport(seed(),null).summary.hasSimulation,false);
 });
+
+test('True-average uncertainty narrows with games and is wider without an entering average',()=>{
+ const s=seed(),games=n=>[{date:'2025-09-04',scores:Array.from({length:n},(_,i)=>190+(i%3)*10)}];
+ const none=profile(s,{id:'x',history:[]}),entering=profile(s,{id:'x',entering:200,history:[]});
+ const some=profile(s,{id:'x',entering:200,history:games(30)}),many=profile(s,{id:'x',entering:200,history:games(300)});
+ assert.ok(none.meanSd>entering.meanSd&&entering.meanSd>some.meanSd&&some.meanSd>many.meanSd);
+ assert.ok(many.meanSd>=3);
+});

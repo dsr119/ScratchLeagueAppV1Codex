@@ -1,4 +1,4 @@
-export const MODEL_VERSION='0.3.0-provisional';
+export const MODEL_VERSION='0.4.0-provisional';
 export const sum=a=>a.reduce((s,x)=>s+x,0);
 export const mean=a=>a.length?sum(a)/a.length:0;
 export function matchPoints(a,b){
@@ -35,8 +35,12 @@ export function profile(state,b){
  const priorMean=prior.length?(weighted(prior)*prior.length+anchor*12)/(prior.length+12):anchor;
  const mu=recent.length?(weighted(recent)*recent.length+priorMean*30)/(recent.length+30):priorMean;
  const all=[...prior,...recent],avg=mean(all),variance=all.length>1?sum(all.map(x=>(x-avg)**2))/(all.length-1):900;
- const sd=Math.sqrt((Math.max(0,all.length-1)*variance+24*900)/(Math.max(0,all.length-1)+24));
- return {mean:mu,sd:Math.max(15,sd),priorGames:prior.length,currentGames:recent.length,observedMean:all.length?avg:null,provisional:!prior.length&&!recent.length};
+ const sd=Math.max(15,Math.sqrt((Math.max(0,all.length-1)*variance+24*900)/(Math.max(0,all.length-1)+24)));
+ // Uncertainty in the bowler's true average: a prior spread (wider without an entering average),
+ // narrowed by recency-weighted games, plus a floor because averages shift between seasons.
+ const decayed=a=>a.reduce((s,_,i)=>s+Math.pow(.992,a.length-1-i),0),games=decayed(all),tau=b.entering==null?20:8;
+ const meanSd=Math.sqrt(1/(1/tau**2+games/sd**2)+3**2);
+ return {mean:mu,sd,meanSd,priorGames:prior.length,currentGames:recent.length,observedMean:all.length?avg:null,provisional:!prior.length&&!recent.length};
 }
 export function projectedMean(p,adj,week){if(!adj)return p.mean;const fraction=adj.end===adj.start?(week>=adj.start?1:0):Math.max(0,Math.min(1,(week-adj.start)/(adj.end-adj.start)));return Math.max(0,Math.min(300,p.mean+adj.delta*fraction));}
 export function random(seed){let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}
@@ -48,9 +52,11 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
  const teams=state.teams;const nums=teams.map(t=>t.number);const teamMap=Object.fromEntries(teams.map(t=>[t.number,t]));
  for(const t of teams)if(t.players.length!==3||new Set(t.players).size!==3||t.players.some(id=>!profiles[id]))throw Error('Every team needs three distinct bowlers.');
  const lineup=teams.flatMap(t=>t.players);if(new Set(lineup).size!==lineup.length)throw Error('A bowler cannot start on two teams.');
+ // Each run draws every bowler's true average once, so thin histories widen the outcome spread.
+ let offsets={};
  const score=(n,w,games,shared=0)=>{
   const totals=Array(games).fill(0);
-  for(const id of teamMap[n].players){const p=profiles[id],mu=projectedMean(p,state.adjustments[id],w),night=normal(rng)*8;
+  for(const id of teamMap[n].players){const p=profiles[id],mu=projectedMean(p,state.adjustments[id],w)+offsets[id],night=normal(rng)*8;
    for(let g=0;g<games;g++)totals[g]+=Math.max(0,Math.min(300,Math.round(mu+shared+night+normal(rng)*Math.sqrt(Math.max(1,p.sd*p.sd-89)))));
   }return totals;
  };
@@ -62,14 +68,15 @@ export function simulate(state,iterations=10000,seed=202627,onProgress=()=>{}){
  const weekly=Array.from({length:34},(_,i)=>({week:i+1,teams:Object.fromEntries(nums.map(n=>[n,{number:n,points:0,win:0,tie:0,opponents:{}}]))}));
  const zero=()=>Object.fromEntries(nums.map(n=>[n,0]));
  for(let run=0;run<iterations;run++){
+  offsets=Object.fromEntries(state.bowlers.map(b=>[b.id,normal(rng)*profiles[b.id].meanSd]));
   const pts=zero(),thirdPts=zero(),pins=zero(),games=zero(),winners=[];
   const rank=(points)=>nums.slice().sort((a,b)=>points[b]-points[a]||(pins[b]/(games[b]||1)-pins[a]/(games[a]||1))||a-b);
   for(let w=1;w<=34;w++){
    const actual=state.results.find(r=>r.week===w);
    const schedule=state.schedule.find(s=>s.week===w);
    const pairs=actual?null:schedule.pairs.length?schedule.pairs:positionPairs(rank(w===34?pts:thirdPts).map(number=>({number})));
-   const shared=normal(rng)*5;
-   const matches=actual?actual.matches:pairs.map(([a,b])=>({teamA:a,teamB:b,a:score(a,w,3,shared),b:score(b,w,3,shared)}));
+   // Lane conditions are drawn per lane pair: both teams on a pair share them, other pairs differ.
+   const matches=actual?actual.matches:pairs.map(([a,b])=>{const shared=normal(rng)*5;return {teamA:a,teamB:b,a:score(a,w,3,shared),b:score(b,w,3,shared)};});
    for(const m of matches){const p=matchPoints(m.a,m.b);[m.teamA,m.teamB].forEach((n,i)=>{const opponent=i?m.teamA:m.teamB,entry=weekly[w-1].teams[n];
     entry.points+=p[i];entry.win+=p[i]>4.5?1:0;entry.tie+=p[i]===4.5?1:0;
     const versus=entry.opponents[opponent]??={number:opponent,count:0,points:0,win:0,tie:0};
