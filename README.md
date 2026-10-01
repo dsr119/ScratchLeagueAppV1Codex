@@ -178,10 +178,18 @@ the existing model, imports, substitute flow, analytics and rendered sections.
 ## Provisional model
 
 Not backtested. Historical mean is recency-weighted and anchored with 12 games
-at entering average. Current scores blend with 30 games of prior weight.
+at entering average. Current scores blend with 60 games of prior weight (fitted on the 2025-26
+season: it best predicted rest-of-season averages for 47 bowlers at weeks 3,
+5, 11 and 17).
 Standard deviation shrinks toward 30 pins with 24 games of weight. Bounded,
-rounded normal scores include a shared condition effect (SD 5) and a bowler
-session effect (SD 8). These are initial assumptions, not fitted settings.
+rounded normal scores include a lane-pair condition effect (SD 5, shared by
+the two teams on a pair) and a bowler session effect (SD 8).
+
+Each trial also draws every bowler's true average once around the model
+average. Its SD starts at 8 pins with an entering average (20 without), narrows
+as recency-weighted games accumulate, and never drops below 3 pins, so thin
+histories widen the forecast instead of being treated as exact. These are
+initial assumptions, not fitted settings.
 
 Actual results remain fixed. Position pairings are recalculated per trial.
 Unique third winners qualify first; season points fill remaining places to
@@ -190,8 +198,9 @@ four-game championship; tied matches use a one-game roll-off. Actual third
 roll-off winners can be recorded as overrides.
 
 Pending assumptions are visible in Setup: exactly tied points/team average
-uses team-number order for position rounds; tied seeds and multi-team
-qualification use simultaneous one-game scores; calculated team average is
+uses team-number order for position rounds; tied seeds among qualified teams
+use calculated team average (roll-off only if exactly equal); multi-team
+qualification ties use simultaneous one-game scores; calculated team average is
 season-to-date team pins divided by team games.
 
 Future games assume the regular lineup attends. Forecasting absences and

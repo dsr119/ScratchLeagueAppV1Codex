@@ -13,6 +13,7 @@
   "playoffTeams": 7,
   "qualification": "unique third winners, then remaining teams by season points",
   "seeding": "multiple-third winner first; other third winners by season points; then wildcards by season points",
+  "seedingTieBreaker": "calculated team average (season-to-date team pins divided by team games)",
   "playoffQualificationTieBreaker": "one-game roll-off",
   "playoffMatchGames": 3,
   "championshipGames": 4,
@@ -22,5 +23,5 @@
   "blindDeductions": {"A":20,"B":15,"C":10},
   "substituteLimit": "regular entering average in first third; current average thereafter",
   "substituteEstablishesAfterGames": 9,
-  "pending": ["equal points and exactly equal team averages in position rounds", "ties for seeding among already qualified teams", "bowler A/B/C designations", "player scoring histories", "completed weekly results"]
+  "pending": ["equal points and exactly equal team averages in position rounds", "bowler A/B/C designations", "player scoring histories", "completed weekly results"]
 }
