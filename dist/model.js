@@ -33,7 +33,7 @@ export function profile(state,b){
  const weighted=a=>{let total=0,weights=0;a.forEach((v,i)=>{const w=Math.pow(.992,a.length-1-i);total+=v*w;weights+=w;});return weights?total/weights:0;};
  const anchor=b.entering??200;
  const priorMean=prior.length?(weighted(prior)*prior.length+anchor*12)/(prior.length+12):anchor;
- const mu=recent.length?(weighted(recent)*recent.length+priorMean*30)/(recent.length+30):priorMean;
+ const mu=recent.length?(weighted(recent)*recent.length+priorMean*60)/(recent.length+60):priorMean;
  const all=[...prior,...recent],avg=mean(all),variance=all.length>1?sum(all.map(x=>(x-avg)**2))/(all.length-1):900;
  const sd=Math.max(15,Math.sqrt((Math.max(0,all.length-1)*variance+24*900)/(Math.max(0,all.length-1)+24)));
  // Uncertainty in the bowler's true average: a prior spread (wider without an entering average),
