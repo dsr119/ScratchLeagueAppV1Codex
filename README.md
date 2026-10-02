@@ -178,9 +178,10 @@ the existing model, imports, substitute flow, analytics and rendered sections.
 ## Provisional model
 
 Not backtested. Historical mean is recency-weighted and anchored with 12 games
-at entering average. Current scores blend with 60 games of prior weight (fitted on the 2025-26
-season: it best predicted rest-of-season averages for 47 bowlers at weeks 3,
-5, 11 and 17).
+at entering average. Current scores blend with 30 games of prior weight. A 60-game weight scored
+best on 2025-26 recaps; 30 was chosen so this season counts for more (about 62%
+of a regular's projection by week 11 including recent form) at a small cost
+(playoff Brier 0.127 to 0.131; next-weeks match points nearly unchanged).
 Recent form: a bowler's last three completed league weeks (at least six real
 games) pull simulated scores 20% toward that average for the next eight weeks
 and 5% beyond that. On 2025-26 recaps this cut next-1-to-3-week match-point

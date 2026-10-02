@@ -37,7 +37,7 @@ export function profile(state,b){
  const weighted=a=>{let total=0,weights=0;a.forEach((v,i)=>{const w=Math.pow(.992,a.length-1-i);total+=v*w;weights+=w;});return weights?total/weights:0;};
  const anchor=b.entering??200;
  const priorMean=prior.length?(weighted(prior)*prior.length+anchor*12)/(prior.length+12):anchor;
- const mu=recent.length?(weighted(recent)*recent.length+priorMean*60)/(recent.length+60):priorMean;
+ const mu=recent.length?(weighted(recent)*recent.length+priorMean*30)/(recent.length+30):priorMean;
  const last=currentWeek(state),formScores=state.results.filter(r=>r.week>last-FORM_WEEKS&&r.week<=last).flatMap(r=>r.matches.flatMap(m=>(m.players||[]).filter(p=>p.bowlerId===b.id&&p.type!=='blind').flatMap(p=>p.scores)));
  const form=formScores.length>=FORM_MIN_GAMES?mean(formScores):null;
  const all=[...prior,...recent],avg=mean(all),variance=all.length>1?sum(all.map(x=>(x-avg)**2))/(all.length-1):900;
