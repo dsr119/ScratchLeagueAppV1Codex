@@ -181,6 +181,10 @@ Not backtested. Historical mean is recency-weighted and anchored with 12 games
 at entering average. Current scores blend with 60 games of prior weight (fitted on the 2025-26
 season: it best predicted rest-of-season averages for 47 bowlers at weeks 3,
 5, 11 and 17).
+Recent form: a bowler's last three completed league weeks (at least six real
+games) pull simulated scores 20% toward that average for the next eight weeks
+and 5% beyond that. On 2025-26 recaps this cut next-1-to-3-week match-point
+error slightly (2.905 to 2.888 RMSE) and bowler-level error by about 1-2%.
 Standard deviation shrinks toward 30 pins with 24 games of weight. Bounded,
 rounded normal scores include a lane-pair condition effect (SD 5, shared by
 the two teams on a pair) and a bowler session effect (SD 8).

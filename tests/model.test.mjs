@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {matchPoints,simulate,profile,projectedMean,standings} from '../dist/model.js';
+import {matchPoints,simulate,profile,projectedMean,standings,formShare} from '../dist/model.js';
 import {parseCSV,historyPreview,mergeHistory,weeklyPreview,dateString} from '../dist/imports.js';
 const seed=()=>JSON.parse(fs.readFileSync(new URL('../dist/seed.json',import.meta.url),'utf8'));
 test('Nine-point scoring handles split games and series ties',()=>{
@@ -115,4 +115,14 @@ test('Qualified teams tied on points are seeded by calculated team average',()=>
  }
  s.thirdWinners={1:1,2:1,3:1};const r=simulate(s,20,9),seedOf=n=>r.teams.find(t=>t.number===n).seeds;
  assert.equal(seedOf(1)[0],1);assert.equal(seedOf(5)[1],1);assert.equal(seedOf(3)[2],1);
+});
+
+test('Recent form uses the last three league weeks and fades with distance',()=>{
+ const s=seed(),id=s.teams[0].players[0];
+ const wk=(w,score)=>({week:w,matches:[{teamA:1,teamB:2,a:[0,0,0],b:[0,0,0],players:[{bowlerId:id,type:'actual',scores:[score,score,score]}]}]});
+ s.results=[wk(1,150),wk(2,240),wk(3,240),wk(4,240)];
+ const p=profile(s,s.bowlers.find(b=>b.id===id));
+ assert.equal(p.form,240);assert.equal(p.formGames,9);
+ assert.equal(formShare(1),.2);assert.equal(formShare(8),.2);assert.equal(formShare(9),.05);
+ s.results=[wk(1,240)];assert.equal(profile(s,s.bowlers.find(b=>b.id===id)).form,null);
 });
