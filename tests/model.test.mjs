@@ -116,3 +116,11 @@ test('Qualified teams tied on points are seeded by calculated team average',()=>
  s.thirdWinners={1:1,2:1,3:1};const r=simulate(s,20,9),seedOf=n=>r.teams.find(t=>t.number===n).seeds;
  assert.equal(seedOf(1)[0],1);assert.equal(seedOf(5)[1],1);assert.equal(seedOf(3)[2],1);
 });
+
+test('Current-season share ramps to 85% at 33 games and holds',()=>{
+ const s=seed(),b={id:'x',entering:200,history:[{date:'2025-09-04',season:'2025-2026',scores:Array(90).fill(200)}]};
+ const withGames=n=>{const st=structuredClone(s);st.results=[{week:1,matches:[{teamA:1,teamB:2,a:[0,0,0],b:[0,0,0],players:[{bowlerId:'x',type:'actual',scores:Array(n).fill(230)}]}]}];return profile(st,b);};
+ assert.ok(Math.abs(withGames(33).currentShare-.85)<1e-12);assert.ok(Math.abs(withGames(60).currentShare-.85)<1e-12);
+ assert.ok(Math.abs(withGames(33).mean-(230*.85+200*.15))<1e-9);
+ assert.ok(Math.abs(withGames(11).currentShare-.85/3)<1e-12);
+});

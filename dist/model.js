@@ -1,4 +1,5 @@
-export const MODEL_VERSION='0.4.0-provisional';
+export const MODEL_VERSION='0.5.0-provisional';
+export const CURRENT_SEASON_SHARE=.85,CURRENT_SEASON_FULL_GAMES=33;
 export const sum=a=>a.reduce((s,x)=>s+x,0);
 export const mean=a=>a.length?sum(a)/a.length:0;
 export function matchPoints(a,b){
@@ -33,14 +34,16 @@ export function profile(state,b){
  const weighted=a=>{let total=0,weights=0;a.forEach((v,i)=>{const w=Math.pow(.992,a.length-1-i);total+=v*w;weights+=w;});return weights?total/weights:0;};
  const anchor=b.entering??200;
  const priorMean=prior.length?(weighted(prior)*prior.length+anchor*12)/(prior.length+12):anchor;
- const mu=recent.length?(weighted(recent)*recent.length+priorMean*60)/(recent.length+60):priorMean;
+ // Current-season share ramps linearly to 85% at 33 games (week 11 for a regular) and holds there.
+ const currentShare=CURRENT_SEASON_SHARE*Math.min(1,recent.length/CURRENT_SEASON_FULL_GAMES);
+ const mu=recent.length?weighted(recent)*currentShare+priorMean*(1-currentShare):priorMean;
  const all=[...prior,...recent],avg=mean(all),variance=all.length>1?sum(all.map(x=>(x-avg)**2))/(all.length-1):900;
  const sd=Math.max(15,Math.sqrt((Math.max(0,all.length-1)*variance+24*900)/(Math.max(0,all.length-1)+24)));
  // Uncertainty in the bowler's true average: a prior spread (wider without an entering average),
  // narrowed by recency-weighted games, plus a floor because averages shift between seasons.
  const decayed=a=>a.reduce((s,_,i)=>s+Math.pow(.992,a.length-1-i),0),games=decayed(all),tau=b.entering==null?20:8;
  const meanSd=Math.sqrt(1/(1/tau**2+games/sd**2)+3**2);
- return {mean:mu,sd,meanSd,priorGames:prior.length,currentGames:recent.length,observedMean:all.length?avg:null,provisional:!prior.length&&!recent.length};
+ return {mean:mu,sd,meanSd,currentShare,priorGames:prior.length,currentGames:recent.length,observedMean:all.length?avg:null,provisional:!prior.length&&!recent.length};
 }
 export function projectedMean(p,adj,week){if(!adj)return p.mean;const fraction=adj.end===adj.start?(week>=adj.start?1:0):Math.max(0,Math.min(1,(week-adj.start)/(adj.end-adj.start)));return Math.max(0,Math.min(300,p.mean+adj.delta*fraction));}
 export function random(seed){let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296;};}

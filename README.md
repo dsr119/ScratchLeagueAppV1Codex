@@ -178,9 +178,8 @@ the existing model, imports, substitute flow, analytics and rendered sections.
 ## Provisional model
 
 Not backtested. Historical mean is recency-weighted and anchored with 12 games
-at entering average. Current scores blend with 60 games of prior weight (fitted on the 2025-26
-season: it best predicted rest-of-season averages for 47 bowlers at weeks 3,
-5, 11 and 17).
+at entering average. Current-season scores ramp linearly to an 85% share at 33 games (week 11 for
+a regular) and hold there; history keeps 15%.
 Standard deviation shrinks toward 30 pins with 24 games of weight. Bounded,
 rounded normal scores include a lane-pair condition effect (SD 5, shared by
 the two teams on a pair) and a bowler session effect (SD 8).
