@@ -9,12 +9,12 @@ const option=(v,label,current)=>`<option value="${esc(v)}" ${String(v)===String(
 const panel=(title,body)=>`<section class="panel analytics"><div class="panel-head"><h2>${esc(title)}</h2></div>${body}</section>`;
 const player=b=>`<button class="text-button" data-stats-player="${esc(b.id)}">${esc(b.name)}</button>`;
 const team=t=>`<button class="text-button" data-team-allplay="${t.number}">${t.number} · ${esc(t.name)}</button>`;
-const C=(key,label,format=v=>num(v))=>({key,label,format});
+export const C=(key,label,format=v=>num(v))=>({key,label,format});
 export function sortAnalytics(rows,key,dir='desc'){
  const value=v=>v&&typeof v==='object'&&'w' in v?v.w+.5*v.t:v;
  return rows.slice().sort((a,b)=>{const x=value(a[key]),y=value(b[key]);if(x==null)return y==null?0:1;if(y==null)return -1;const c=typeof x==='string'?x.localeCompare(y):x-y;return (dir==='asc'?c:-c)||(a.name||'').localeCompare(b.name||'');});
 }
-function table(id,columns,rows,settings,defaultKey,defaultDir='desc'){
+export function table(id,columns,rows,settings,defaultKey,defaultDir='desc'){
  const sort=settings.sorts?.[id]||{key:defaultKey,dir:defaultDir};
  return `<div class="table-wrap" tabindex="0" role="region" aria-label="${esc(id.replaceAll('-',' '))}"><table><thead><tr>${columns.map(c=>`<th scope="col" ${sort.key===c.key?`aria-sort="${sort.dir==='asc'?'ascending':'descending'}"`:''}><button class="sort-button" data-analytics-table="${esc(id)}" data-analytics-sort="${c.key}" data-default-direction="${c.defaultDir||'desc'}">${esc(c.label)}${sort.key===c.key?(sort.dir==='asc'?' ↑':' ↓'):''}</button></th>`).join('')}</tr></thead><tbody>${sortAnalytics(rows,sort.key,sort.dir).map(row=>`<tr>${columns.map(c=>`<td>${c.format(row[c.key],row)}</td>`).join('')}</tr>`).join('')||`<tr><td colspan="${columns.length}" class="empty">No qualifying results for these filters.</td></tr>`}</tbody></table></div>`;
 }

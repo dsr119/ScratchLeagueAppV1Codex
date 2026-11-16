@@ -3,12 +3,14 @@ import {parseCSV,readXlsx,historyPreview,mergeHistory,prepareWeeklyImport,commit
 import {createDebugReport,inputFingerprint} from './debug.js';
 import {cloud} from './cloud.js';
 import {assignEnteringCategories} from './stats.js';
-import {statsView,allPlayView,teamAllPlayView,statsDetail} from './stats-ui.js';
-const analyticsSettings={source:'current',category:'all',minimum:null,tab:'overview',sorts:{},week:null};
+import {statsView,allPlayView,teamAllPlayView,statsDetail} from './stats-ui.js'
+import {windowView} from './window-ui.js';
+const analyticsSettings={source:'current',category:'all',minimum:null,tab:'overview',sorts:{},week:null}
+const windowSettings={weeks:4,through:null,who:'all',minimum:null};
 const $=s=>document.querySelector(s),escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const pct=n=>n==null?'—':(n*100).toFixed(1)+'%',fmt=n=>Number(n).toLocaleString('en-US',{maximumFractionDigits:1});
 let state,view='outlook',period=0,outlookSort='standings',selectedTeam=1,selectedWeek=1,query='',showSubs=false,dirty=false,revision=0,cloudReady=false,error='',pending=[],worker=null,progress=0,iterations=10000,randomSeed=202627,selectedRun=null,toastTimer;
-const nav=[['outlook','Season outlook'],['team-weeks','Team weekly odds'],['stats','Stats'],['all-play','All-Play'],['players','Player ratings'],['teams','Teams & rosters'],['schedule','Schedule & results'],['imports','Import scores'],['setup','Setup & rules']];
+const nav=[['outlook','Season outlook'],['team-weeks','Team weekly odds'],['stats','Stats'],['last-weeks','Last X weeks'],['all-play','All-Play'],['players','Player ratings'],['teams','Teams & rosters'],['schedule','Schedule & results'],['imports','Import scores'],['setup','Setup & rules']];
 const teamName=n=>state.teams.find(t=>t.number===n)?.name||'Team '+n;
 const playerName=id=>state.bowlers.find(b=>b.id===id)?.name||'Unknown bowler';
 function toast(text){$('#toast').textContent=text;$('#toast').style.display='block';clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').style.display='none',6000);}
@@ -22,7 +24,7 @@ function activeRun(){return selectedRun?state.runs.find(r=>r.id===selectedRun):s
 function runFingerprint(){return inputFingerprint(state);}
 function render(){
  const [have,total]=coverage(),w=currentWeek(state);
- $('#app').innerHTML=`<div class="shell"><aside class="sidebar"><div class="brand">SCRATCH<br>CLASSIC<span>LEAGUE FORECAST</span></div><div class="season-tag">2026 / 2027 SEASON</div><nav aria-label="Main navigation">${nav.map(([v,label],i)=>`<button class="nav-button ${view===v?'active':''}" data-view="${v}" ${view===v?'aria-current="page"':''}><span class="nav-index">0${i+1}</span>${label}</button>`).join('')}</nav><div class="sidebar-foot"><strong>Upstate Amusements</strong>18 teams · 7 playoff places<br><span>${have} of ${total} histories loaded</span></div></aside><main class="main"><header class="topbar"><span>UPSTATE AMUSEMENTS / <strong>2026–2027</strong></span><div class="top-actions"><span>${cloudReady?(dirty?'Unsaved changes':'Saved league loaded'):'Setup required · changes not saved'}</span><button data-action="save" ${worker?'disabled':''}>Save league</button><button data-view="setup">${cloud.email?'Account':'Sign in'}</button></div></header>${error?`<div class="notice error" role="alert">${escape(error)}</div>`:''}${({outlook:outlook,'team-weeks':teamWeeksView,stats:()=>statsView(state,analyticsSettings),'all-play':()=>allPlayView(state,analyticsSettings),players:playersView,teams:teamsView,schedule:scheduleView,imports:importsView,setup:setupView}[view])()}<footer class="footer"><span>SCRATCH CLASSIC · ${MODEL_VERSION}</span><span>${w} of 34 weeks recorded · Championship date TBD</span></footer></main></div>`;
+ $('#app').innerHTML=`<div class="shell"><aside class="sidebar"><div class="brand">SCRATCH<br>CLASSIC<span>LEAGUE FORECAST</span></div><div class="season-tag">2026 / 2027 SEASON</div><nav aria-label="Main navigation">${nav.map(([v,label],i)=>`<button class="nav-button ${view===v?'active':''}" data-view="${v}" ${view===v?'aria-current="page"':''}><span class="nav-index">${String(i+1).padStart(2,"0")}</span>${label}</button>`).join('')}</nav><div class="sidebar-foot"><strong>Upstate Amusements</strong>18 teams · 7 playoff places<br><span>${have} of ${total} histories loaded</span></div></aside><main class="main"><header class="topbar"><span>UPSTATE AMUSEMENTS / <strong>2026–2027</strong></span><div class="top-actions"><span>${cloudReady?(dirty?'Unsaved changes':'Saved league loaded'):'Setup required · changes not saved'}</span><button data-action="save" ${worker?'disabled':''}>Save league</button><button data-view="setup">${cloud.email?'Account':'Sign in'}</button></div></header>${error?`<div class="notice error" role="alert">${escape(error)}</div>`:''}${({outlook:outlook,'team-weeks':teamWeeksView,stats:()=>statsView(state,analyticsSettings),'all-play':()=>allPlayView(state,analyticsSettings),'last-weeks':()=>windowView(state,{...windowSettings,sorts:analyticsSettings.sorts}),players:playersView,teams:teamsView,schedule:scheduleView,imports:importsView,setup:setupView}[view])()}<footer class="footer"><span>SCRATCH CLASSIC · ${MODEL_VERSION}</span><span>${w} of 34 weeks recorded · Championship date TBD</span></footer></main></div>`;
 }
 function outlook(){
  const run=activeRun(),[have,total]=coverage(),w=currentWeek(state),byTeam=Object.fromEntries((run?.teams||[]).map(t=>[t.number,t])),stale=run&&(run.fingerprint!==runFingerprint()||run.modelVersion!==MODEL_VERSION);
@@ -99,6 +101,10 @@ document.addEventListener('click',async e=>{const b=e.target.closest('button');i
  if(b.dataset.period!=null){period=Number(b.dataset.period);render();return;}
  if(b.dataset.statsPlayer){openStatsPlayer(b.dataset.statsPlayer);return;}
  if(b.dataset.teamAllplay){selectedTeam=Number(b.dataset.teamAllplay);view='team-weeks';render();return;}
+ if(b.dataset.windowWeeks){windowSettings.weeks=Number(b.dataset.windowWeeks);
+render();
+return;
+}
  if(b.dataset.statsTab){analyticsSettings.tab=b.dataset.statsTab;render();return;}
  if(b.dataset.analyticsSort){const id=b.dataset.analyticsTable,key=b.dataset.analyticsSort,old=analyticsSettings.sorts[id];analyticsSettings.sorts[id]={key,dir:old?.key===key?(old.dir==='asc'?'desc':'asc'):(b.closest('th').getAttribute('aria-sort')==='descending'?'asc':b.dataset.defaultDirection)};render();return;}
  if(b.dataset.player){openPlayer(b.dataset.player);return;}
@@ -122,6 +128,14 @@ document.addEventListener('click',async e=>{const b=e.target.closest('button');i
  }catch(err){error=err.message;render();toast(err.message);}});
 document.addEventListener('change',async e=>{const t=e.target;try{
  if(t.dataset.statsSetting){const key=t.dataset.statsSetting;if(key==='minimum'){if(t.value!==''&&(!Number.isInteger(Number(t.value))||Number(t.value)<1))throw Error('Minimum games must be a positive whole number.');analyticsSettings.minimum=t.value===''?null:Number(t.value);}else analyticsSettings[key]=t.value;render();return;}
+ if(t.dataset.windowSetting){const key=t.dataset.windowSetting;
+if(key==='minimum'){if(t.value!==''&&(!Number.isInteger(Number(t.value))||Number(t.value)<1))throw Error('Minimum games must be a positive whole number.');
+windowSettings.minimum=t.value===''?null:Number(t.value);
+}else if(key==='who')windowSettings.who=t.value;
+else{windowSettings[key]=Number(t.value);if(key==='through'&&windowSettings.weeks>Number(t.value))windowSettings.weeks=Number(t.value);}
+render();
+return;
+}
  if(t.hasAttribute('data-allplay-week')){analyticsSettings.week=Number(t.value);render();return;}
  if(t.dataset.statsCategoryPlayer){const bowler=state.bowlers.find(b=>b.id===t.dataset.statsCategoryPlayer);if(!bowler||!['A','B','C','Unassigned'].includes(t.value))throw Error('Choose a valid category.');bowler.category=t.value==='Unassigned'?null:t.value;changed();render();openStatsPlayer(bowler.id);return;}
 
