@@ -110,7 +110,7 @@ export function calculateWindow(state,options={}){
   const teamsBowled=[...new Set(list.map(s=>s.team))];
   const sd=games.length>1?Math.sqrt(sum(games.map(g=>(g-average)**2))/(games.length-1)):null;
   const firstHalf=list.slice(0,Math.floor(list.length/2)).flatMap(s=>s.scores),secondHalf=list.slice(Math.ceil(list.length/2)).flatMap(s=>s.scores);
-  return {id,name:b?.name||'Unknown bowler',regularTeam:home,substitute:home==null,teams:teamsBowled,teamLabel:teamsBowled.map(teamName).join(', '),
+  return {id,name:b?.name||'Unknown bowler',category:['A','B','C'].includes(b?.category)?b.category:null,regularTeam:home,substitute:home==null,teams:teamsBowled,teamLabel:teamsBowled.map(teamName).join(', '),
    weeks:list.length,games:games.length,pins:sum(games),average,seasonAverage:all.length?mean(all):null,seasonGames:all.length,
    priorAverage,change:priorAverage==null?null:average-priorAverage,entering,vsEntering:entering==null?null:average-entering,
    highGame:maxOrNull(games),lowGame:games.length?Math.min(...games):null,highSeries:maxOrNull(series),lowSeries:series.length?Math.min(...series):null,

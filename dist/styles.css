@@ -11,3 +11,6 @@
 .window-list li{padding:.2rem 0;line-height:1.4}
 .window-list li strong{display:inline-block;min-width:3.2rem}
 @media(max-width:760px){.window-lists{grid-template-columns:1fr}}
+.window-top3{margin:.2rem 0 0;padding-left:1.3rem;font-size:.95rem;font-weight:500;letter-spacing:0;line-height:1.55}
+.window-top3 strong{display:inline-block;min-width:2.6rem}
+.window-note{margin:-.6rem 0 1.2rem}
