@@ -5,6 +5,7 @@ import {calculateWindow,windowRange} from '../dist/window-stats.js';
 import {windowView} from '../dist/window-ui.js';
 import {standings} from '../dist/model.js';
 import {weeklyPreview} from '../dist/imports.js';
+import {assignEnteringCategories} from '../dist/stats.js';
 const seed=()=>JSON.parse(fs.readFileSync(new URL('../dist/seed.json',import.meta.url)));
 function week(s,w,score){
  const rows=[['Week','TeamNumber','Bowler','Gm1','Gm2','Gm3','ScoreType'],...s.teams.flatMap(t=>t.players.map((id,i)=>[w,t.number,s.bowlers.find(b=>b.id===id).name,...score(t.number,i,w),'actual']))];
@@ -58,4 +59,16 @@ test('Window page renders standings, points grid, averages and highlights',()=>{
  const s=season(5),html=windowView(s,{weeks:3,sorts:{}});
  for(const text of ['Last 3 weeks','Weeks 3–5','Points by week','Individual averages','Highlights','Team series by week','Individual series by week'])assert.ok(html.includes(text),text);
  assert.ok(windowView(seed(),{weeks:3}).includes('No weeks recorded yet'));
+});
+
+test('Summary shows Doug\'s items, with A/B/C best bowlers from league categories',()=>{
+ const s=season(5);assignEnteringCategories(s);
+ const html=windowView(s,{weeks:3,sorts:{}});
+ for(const text of ['Most points','Best team game','Best team series','Best team average','Best A bowler','Best B bowler','Best C bowler','Best bowler (all)','Top 3 high games','Top 3 high series'])assert.ok(html.includes(text),text);
+ const w=calculateWindow(s,{weeks:3});
+ for(const c of ['A','B','C']){
+  const rows=w.bowlers.filter(b=>b.category===c);assert.equal(rows.length,18);
+  const top=Math.max(...rows.map(b=>b.average));
+  assert.ok(html.includes(`Best ${c} bowler · average</div><div class="value">${Number(top).toLocaleString('en-US',{maximumFractionDigits:1})}<`),c);
+ }
 });

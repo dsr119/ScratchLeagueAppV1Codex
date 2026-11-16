@@ -15,14 +15,6 @@ const shortDate=d=>{if(!d)return '';const [y,m,day]=String(d).split('-').map(Num
 
 export function defaultWindowMinimum(weeks){return 3*Math.max(1,Math.ceil(weeks/2));}
 
-function cards(items){
- return `<div class="metrics window-metrics">${items.map(([label,value,foot])=>`<div class="metric"><div class="label">${esc(label)}</div><div class="value">${value}</div><div class="foot">${foot}</div></div>`).join('')}</div>`;
-}
-function leader(rows,key,lower=false){
- const valid=rows.filter(r=>r[key]!=null);if(!valid.length)return null;
- const best=sortAnalytics(valid,key,lower?'asc':'desc')[0];
- return {row:best,tied:valid.filter(r=>r[key]===best[key]).length};
-}
 function list(title,rows,format){
  return `<div class="window-list"><h3>${esc(title)}</h3>${rows.length?`<ol>${rows.map(r=>`<li>${format(r)}</li>`).join('')}</ol>`:'<p class="fine muted">Not enough games yet.</p>'}</div>`;
 }
@@ -53,20 +45,26 @@ function renderWindowView(state,settings){
   <label>Min. games for leaders<input data-window-setting="minimum" type="number" min="1" step="1" placeholder="Auto: ${defaultWindowMinimum(range.weeks)}" value="${settings.minimum??''}"></label>
  </div>`);
 
- // Headline cards
- const topTeam=data.teams[0],bestAvg=leader(data.teams.filter(t=>t.games),'average'),topBowler=leader(qualified,'average');
- const hg=filteredGames[0],hs=series[0],improved=leader(qualified.filter(b=>b.change!=null),'change');
- const tieNote=(l)=>l&&l.tied>1?` · ${l.tied}-way tie`:'';
- const headline=cards([
-  ['Most points',topTeam?num(topTeam.points):'—',topTeam?team(topTeam)+` · ${record(topTeam)}`:''],
-  ['Best team average',bestAvg?num(bestAvg.row.average):'—',bestAvg?team(bestAvg.row)+tieNote(bestAvg):''],
-  ['Highest bowler average',topBowler?num(topBowler.row.average):'—',topBowler?player(topBowler.row)+` · ${topBowler.row.games} games`+tieNote(topBowler):`No one with ${minimum}+ games`],
-  ['High game',hg?num(hg.score):'—',hg?player(hg)+` · Week ${hg.week}`:''],
-  ['High series',hs?num(hs.score):'—',hs?player(hs)+` · Week ${hs.week}`:''],
-  ['Most improved',improved?signed(improved.row.change):'—',improved?player(improved.row)+' · vs earlier weeks':'Needs earlier weeks to compare'],
-  ['League average',num(data.league.average),`${num(data.league.games,0)} games · team avg ${num(data.league.teamAverage)}`],
-  ['Big nights',`${data.league.g200}`,`200+ games · ${data.league.s700} series of 700+${data.league.g300?` · ${data.league.g300} × 300`:''}`]
- ]);
+ // Summary: the items Doug asked for, for the chosen weeks.
+ const tiedWith=(rows,key)=>{const valid=rows.filter(r=>r[key]!=null);if(!valid.length)return [];const best=sortAnalytics(valid,key,'desc')[0][key];return sortAnalytics(valid.filter(r=>r[key]===best),'name','asc');};
+ const names=(rows,link)=>rows.slice(0,3).map(link).join(' & ')+(rows.length>3?` +${rows.length-3} more`:'')+(rows.length>1?' (tie)':'');
+ const best=(label,rows,key,link,detail,empty)=>{const top=tiedWith(rows,key);return [label,top.length?num(top[0][key]):'—',top.length?names(top,link)+(detail&&top.length===1?' · '+detail(top[0]):''):empty];};
+ const topScores=(rows,k)=>rows.slice(0,k);
+ const bestOf=(rows)=>{const top=rows.filter(r=>r.score===rows[0]?.score);return top;};
+ const teamGameTop=bestOf(data.leaders.teamGames),teamSeriesTop=bestOf(data.leaders.teamSeries);
+ const listCard=(label,rows,line)=>[label,rows.length?`<ol class="window-top3">${rows.map(r=>`<li>${line(r)}</li>`).join('')}</ol>`:'—',''];
+ const noQual=`No one with ${minimum}+ games`;
+ const catRows=c=>qualified.filter(b=>b.category===c);
+ const headline=`<div class="metrics window-metrics">${[
+  best('Most points',data.teams,'points',team,t=>record(t),''),
+  ['Best team game',teamGameTop.length?num(teamGameTop[0].score):'—',teamGameTop.length?names(teamGameTop,team)+(teamGameTop.length===1?` · Week ${teamGameTop[0].week}, game ${teamGameTop[0].game}`:''):''],
+  ['Best team series',teamSeriesTop.length?num(teamSeriesTop[0].score):'—',teamSeriesTop.length?names(teamSeriesTop,team)+(teamSeriesTop.length===1?` · Week ${teamSeriesTop[0].week}`:''):''],
+  best('Best team average',data.teams.filter(t=>t.games),'average',team,null,''),
+  ...['A','B','C'].map(c=>best(`Best ${c} bowler · average`,catRows(c),'average',player,b=>`${b.games} games`,state.bowlers.some(b=>b.category===c)?noQual:`No ${c} bowlers assigned`)),
+  best('Best bowler (all) · average',qualified,'average',player,b=>`${b.games} games${b.category?' · '+b.category:''}`,noQual),
+  listCard('Top 3 high games',topScores(filteredGames,3),g=>`<strong>${g.score}</strong> ${player(g)} <span class="muted">Wk ${g.week}</span>`),
+  listCard('Top 3 high series',topScores(series,3),s=>`<strong>${s.score}</strong> ${player(s)} <span class="muted">Wk ${s.week}</span>`)
+ ].map(([label,value,foot])=>`<div class="metric"><div class="label">${esc(label)}</div><div class="value">${value}</div>${foot?`<div class="foot">${foot}</div>`:''}</div>`).join('')}</div><p class="fine muted window-note">Bowler averages count bowlers with at least ${minimum} games in these weeks (change it with "Min. games for leaders"). A/B/C use each bowler's league category. Team numbers include official blinds; bowler numbers don't.</p>`;
 
  // Team standings for the window
  const teamRows=data.teams.map(t=>({...t,record:{w:t.w,l:t.l,t:t.t}}));
